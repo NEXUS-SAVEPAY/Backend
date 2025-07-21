@@ -1,11 +1,3 @@
----
-name: PR
-about: Pull Request
-title: ''
-labels: ''
-assignees: ''
----
-
 ## 📝 PR 설명
 > 이번 PR에서 변경된 내용 또는 추가된 기능을 간단히 설명해주세요.
 
