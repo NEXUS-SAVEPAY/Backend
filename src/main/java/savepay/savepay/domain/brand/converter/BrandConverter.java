@@ -1,4 +1,4 @@
-package savepay.savepay.domain.brand.Converter;
+package savepay.savepay.domain.brand.converter;
 
 import savepay.savepay.domain.brand.dto.BrandResponseDto;
 import savepay.savepay.domain.brand.entity.Brand;

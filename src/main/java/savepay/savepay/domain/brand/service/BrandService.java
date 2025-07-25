@@ -3,7 +3,7 @@ package savepay.savepay.domain.brand.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import savepay.savepay.domain.brand.Converter.BrandConverter;
+import savepay.savepay.domain.brand.converter.BrandConverter;
 import savepay.savepay.domain.brand.dto.BrandRequestDto;
 import savepay.savepay.domain.brand.dto.BrandResponseDto;
 import savepay.savepay.domain.brand.entity.Brand;
