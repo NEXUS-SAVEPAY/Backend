@@ -14,7 +14,6 @@ public class PaymentConverter {
                 .paymentType(dto.getPaymentType())
                 .build();
     }
-
     public static PaymentResponseDto toDto(Payment entity) {
         return PaymentResponseDto.builder()
                 .id(entity.getId())
