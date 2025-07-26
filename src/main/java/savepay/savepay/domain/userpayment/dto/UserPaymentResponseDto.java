@@ -7,6 +7,7 @@ import savepay.savepay.domain.payment.entity.PaymentType;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+
 public class UserPaymentResponseDto {
     private Long userPaymentId;
     private Long userId;
