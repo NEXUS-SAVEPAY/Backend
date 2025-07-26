@@ -9,6 +9,7 @@ import savepay.savepay.domain.payment.entity.Payment;
 import savepay.savepay.domain.user.entity.User;
 
 @Entity
+
 public class UserPayment extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
