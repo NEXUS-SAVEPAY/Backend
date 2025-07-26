@@ -18,13 +18,19 @@ import savepay.savepay.domain.common.BaseEntity;
 @Entity
 public class Payment extends BaseEntity {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    private Long userId;
+    private Long cardId;
 
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType; // 결제 수단 타입
 
-    private String cardimage;
+    private int amount;
+
+    private String cardImage;
     private String cardName;
     private String company;
 }
