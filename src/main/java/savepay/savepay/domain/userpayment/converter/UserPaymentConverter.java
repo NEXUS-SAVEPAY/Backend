@@ -9,8 +9,8 @@ public class UserPaymentConverter {
     public static UserPaymentResponseDto toDto(UserPayment entity) {
         return UserPaymentResponseDto.builder()
                 .id(entity.getId())
-                .userId(entity.getUserId())
-                .paymentId(entity.getPaymentId())
+                .userId(entity.getUser() != null ? entity.getUser().getId() : null)
+                .paymentId(entity.getPayment() != null ? entity.getPayment().getId() : null)
                 .build();
     }
 }
