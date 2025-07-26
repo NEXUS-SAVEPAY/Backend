@@ -2,9 +2,8 @@ package savepay.savepay.domain.brand.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import savepay.savepay.domain.brand.entity.Brand;
-
-import java.util.Optional;
+import java.util.List;
 
 public interface BrandRepository extends CrudRepository<Brand, Long> {
-    Optional<Brand> findByName(String name);
+    List<Brand> findTop10ByNameContainingIgnoreCaseOrderByNameAsc(String keyword);
 }
