@@ -1,6 +1,5 @@
 package savepay.savepay.domain.userpayment.converter;
 
-import savepay.savepay.domain.userpayment.dto.UserPaymentRequestDto;
 import savepay.savepay.domain.userpayment.dto.UserPaymentResponseDto;
 import savepay.savepay.domain.userpayment.entity.UserPayment;
 
