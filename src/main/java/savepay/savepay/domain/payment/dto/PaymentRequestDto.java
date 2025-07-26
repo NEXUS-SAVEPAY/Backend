@@ -6,6 +6,7 @@ import savepay.savepay.domain.payment.entity.PaymentType;
 
 @Getter
 @NoArgsConstructor
+
 public class PaymentRequestDto {
     private Long userId; // UserId
     private Long cardId; // CardId
