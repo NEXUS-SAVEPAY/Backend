@@ -6,7 +6,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class UserPaymentRequestDto {
     private Long userId;
     private Long paymentId;
