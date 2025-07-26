@@ -10,6 +10,7 @@ import savepay.savepay.domain.brand.entity.Brand;
 import savepay.savepay.domain.brand.repository.BrandRepository;
 import savepay.savepay.global.code.status.ErrorStatus;
 import savepay.savepay.global.exception.GeneralException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -17,10 +18,14 @@ public class BrandService {
 
     private final BrandRepository brandRepository;
 
-    public BrandResponseDto.BrandInfoDto searchBrand(BrandRequestDto.BrandNameRequestDto request) {
-        Brand brand = brandRepository.findByName(request.getName())
-                .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
+    public List<BrandResponseDto.BrandInfoDto> searchBrand(BrandRequestDto.BrandNameRequestDto request) {
+        List<Brand> brands = brandRepository.findTop10ByNameContainingIgnoreCaseOrderByNameAsc(request.getName());
+        if (brands.isEmpty()) {
+            throw new GeneralException(ErrorStatus.BRAND_NOT_FOUND);
+        }
 
-        return BrandConverter.toBrandInfoDto(brand);
+        return brands.stream()
+                .map(BrandConverter::toBrandInfoDto)
+                .toList();
     }
 }
