@@ -26,6 +26,7 @@ public class UserTelecomService {
     private final TelecomRepository telecomRepository;
 
 
+    @Transactional
     public UserTelecomResponseDTO connectTelecom(UserTelecomRequestDTO requestDTO, User user) {
         TelecomName telecomName = TelecomConverter.nameToEnum(requestDTO.telecomName());
 
