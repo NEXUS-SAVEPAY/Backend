@@ -1,10 +1,10 @@
-package savepay.savepay.domain.payment.controller;
+package savepay.savepay.domain.userpayment.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import savepay.savepay.domain.payment.dto.UserPaymentRequestDto;
-import savepay.savepay.domain.payment.dto.UserPaymentResponseDto;
-import savepay.savepay.domain.payment.service.UserPaymentService;
+import savepay.savepay.domain.userpayment.dto.UserPaymentRequestDto;
+import savepay.savepay.domain.userpayment.dto.UserPaymentResponseDto;
+import savepay.savepay.domain.userpayment.service.UserPaymentService;
 
 import java.util.List;
 
