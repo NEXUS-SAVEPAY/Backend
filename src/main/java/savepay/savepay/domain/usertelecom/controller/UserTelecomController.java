@@ -31,5 +31,4 @@ public class UserTelecomController {
     ApiResponse<UserTelecomResponseDTO> connectUserTelecom(User user, UserTelecomRequestDTO dto) {
         return ApiResponse.onSuccess(userTelecomService.connectTelecom(dto, user));
     }
-
 }
