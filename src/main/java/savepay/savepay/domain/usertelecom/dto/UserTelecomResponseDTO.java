@@ -5,7 +5,7 @@ import lombok.Builder;
 @Builder
 public record UserTelecomResponseDTO(
         Long userId,
-        String TelecomName,
+        String telecomName,
         String grade,
         boolean isMemberShip
 ) {

@@ -15,7 +15,7 @@ public class UserTelecomConverter {
     public static UserTelecomResponseDTO toDTO(UserTelecom userTelecom) {
         return UserTelecomResponseDTO.builder()
                 .userId(userTelecom.getUser().getId())
-                .TelecomName(userTelecom.getTelecom().getTelecomName().name())
+                .telecomName(userTelecom.getTelecom().getTelecomName().name())
                 .grade(userTelecom.getGrade().name())
                 .isMemberShip(userTelecom.getIsMemberShip())
                 .build();
