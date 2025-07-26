@@ -12,7 +12,6 @@ import savepay.savepay.domain.user.entity.User;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-
 public class UserPayment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -22,9 +21,4 @@ public class UserPayment extends BaseEntity {
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private Long userId;
-    private Long paymentId;
 }
