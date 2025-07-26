@@ -19,7 +19,7 @@ public class BrandService {
     private final BrandRepository brandRepository;
 
     public List<BrandResponseDto.BrandInfoDto> searchBrand(BrandRequestDto.BrandNameRequestDto request) {
-        List<Brand> brands = brandRepository.findTop10ByNameContainingIgnoreCaseOrderByNameAsc(request.getName());
+        List<Brand> brands = brandRepository.searchBrands(request.getName());
         if (brands.isEmpty()) {
             throw new GeneralException(ErrorStatus.BRAND_NOT_FOUND);
         }
