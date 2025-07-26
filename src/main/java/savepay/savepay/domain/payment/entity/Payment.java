@@ -5,7 +5,6 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import savepay.savepay.domain.common.BaseEntity;
 
-
 /*
     단일 테이블 전략을 사용하기 위해 추상 객체로 설정했습니다.
  */
@@ -19,8 +18,13 @@ import savepay.savepay.domain.common.BaseEntity;
 @Entity
 public class Payment extends BaseEntity {
 
-    private String image;
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private PaymentType paymentType; // 결제 수단 타입
+
+    private String cardimage;
+    private String cardName;
     private String company;
-
 }
