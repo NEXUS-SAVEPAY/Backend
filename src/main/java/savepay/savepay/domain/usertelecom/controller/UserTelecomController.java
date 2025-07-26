@@ -17,7 +17,7 @@ import savepay.savepay.global.ApiResponse;
  */
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/user-telecomes")
+@RequestMapping("/api/user-telecoms")
 public class UserTelecomController {
 
     private final UserTelecomService userTelecomService;
