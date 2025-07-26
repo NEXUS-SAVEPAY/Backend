@@ -19,7 +19,6 @@ public class UserPaymentController {
     public UserPaymentResponseDto registerUserPayment(@RequestBody UserPaymentRequestDto dto) {
         return userPaymentService.registerUserPayment(dto);
     }
-
     // 회원이 등록한 결제수단 리스트 조회
     @GetMapping("/{userId}")
     public List<UserPaymentResponseDto> getUserPayments(@PathVariable Long userId) {
