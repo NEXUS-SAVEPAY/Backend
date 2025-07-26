@@ -1,17 +1,18 @@
 package savepay.savepay.domain.telecom.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import savepay.savepay.domain.common.BaseEntity;
 import savepay.savepay.domain.user.entity.User;
 
 @Entity
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Telecom extends BaseEntity {
 
-    private String grade;
-
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @Enumerated(EnumType.STRING)
+    private TelecomName telecomName;
 }
