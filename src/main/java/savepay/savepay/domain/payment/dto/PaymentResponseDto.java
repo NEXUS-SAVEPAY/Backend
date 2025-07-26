@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 
 @Getter
 @Builder
+
 public class PaymentResponseDto {
     private Long cardId;
     private String company;
@@ -15,4 +16,3 @@ public class PaymentResponseDto {
     private String cardImage;
     private PaymentType paymentType;
 }
-    
