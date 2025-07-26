@@ -6,7 +6,6 @@ import savepay.savepay.domain.payment.entity.PaymentType;
 
 @Getter
 @Builder
-
 public class PaymentResponseDto {
     private Long id;
     private Long userId;
