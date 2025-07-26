@@ -2,7 +2,7 @@ package savepay.savepay.domain.payment.converter;
 
 import savepay.savepay.domain.payment.dto.PaymentRequestDto;
 import savepay.savepay.domain.payment.dto.PaymentResponseDto;
-import savepay.savepay.domain.payment.dto.entity.Payment;
+import savepay.savepay.domain.payment.entity.Payment;
 
 public class PaymentConverter {
 
@@ -20,7 +20,6 @@ public class PaymentConverter {
                 .userId(entity.getUserId())
                 .amount(entity.getAmount())
                 .paymentType(entity.getPaymentType())
-                .createdAt(entity.getCreatedAt())
                 .build();
     }
 }
