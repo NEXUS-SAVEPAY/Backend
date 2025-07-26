@@ -1,4 +1,4 @@
-package savepay.savepay.domain.payment.dto;
+package savepay.savepay.domain.userpayment.dto;
 
 import lombok.*;
 
