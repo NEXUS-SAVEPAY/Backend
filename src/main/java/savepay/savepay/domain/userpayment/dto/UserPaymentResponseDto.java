@@ -9,6 +9,7 @@ import savepay.savepay.domain.payment.entity.PaymentType;
 @Builder
 
 public class UserPaymentResponseDto {
+    private Long id;
     private Long userPaymentId;
     private Long userId;
     private Long paymentId;
