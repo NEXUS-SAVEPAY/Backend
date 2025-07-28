@@ -8,4 +8,9 @@ public class InterestBrandRequestDto {
     public static class toBrandIdDto {
         Long brandId;
     }
+
+    @Getter
+    public static class toInterestBrandIdDto {
+        Long interestBrandId;
+    }
 }
