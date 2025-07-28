@@ -4,6 +4,7 @@ import savepay.savepay.domain.interestbrand.dto.InterestBrandResponseDto;
 import savepay.savepay.domain.interestbrand.entity.InterestBrand;
 
 public class InterestBrandConverter {
+
     public static InterestBrandResponseDto.InterestBrandInfo toInterestBrandInfoDto(InterestBrand interestBrand) {
         return InterestBrandResponseDto.InterestBrandInfo.builder()
                 .id(interestBrand.getId())
