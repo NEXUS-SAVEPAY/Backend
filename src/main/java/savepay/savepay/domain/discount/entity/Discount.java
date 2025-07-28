@@ -1,9 +1,6 @@
 package savepay.savepay.domain.discount.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import savepay.savepay.domain.brand.entity.Brand;
 import savepay.savepay.domain.common.BaseEntity;
 import savepay.savepay.domain.payment.entity.Payment;
@@ -24,6 +21,7 @@ public class Discount extends BaseEntity {
     /*
         추가 객체가 필요할지 vs 단순 String으로 할지
      */
+    @Column(name = "discount_condition")
     private String condition;
 
     private String infoLink;
