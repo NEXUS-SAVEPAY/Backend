@@ -55,7 +55,7 @@ public class InterestBrandController {
     }
 
     @GetMapping("/search")
-    @Operation(summary = "유저의 브랜드 검색어 리스트 API", description = "유저가 검색한 브랜드 리스트 내역을 반환하는 메서드")
+    @Operation(summary = "유저의 브랜드 검색어 리스트 API", description = "유저가 검색한 최근 브랜드 리스트 내역 10개 반환하는 메서드")
     public ApiResponse<List<InterestBrandResponseDto.InterestBrandInfo>> getSearchBrands(Authentication authentication) {
         String email = authentication.getName();
         return ApiResponse.onSuccess(interestBrandService.getSearchBrands(email));
