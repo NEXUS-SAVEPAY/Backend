@@ -15,8 +15,10 @@ public enum ErrorStatus implements BaseErrorCode {
     FORBIDDEN(HttpStatus.FORBIDDEN, "COMMON403", "금지된 요청입니다."),
 
     USER_TELECOM_NOT_FOUND(HttpStatus.NOT_FOUND, "USERTELECOM404", "유저와 연결된 통신사를 찾을 수 없습니다."),
-    BRAND_NOT_FOUND(HttpStatus.NOT_FOUND, "BRAND404", "브랜드를 찾을 수 없습니다.");
-
+    BRAND_NOT_FOUND(HttpStatus.NOT_FOUND, "BRAND404", "브랜드를 찾을 수 없습니다."),
+    USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER404", "회원 정보를 찾을 수 없습니다."),
+    INTERESTED_BRAND_NOT_FOUND(HttpStatus.NOT_FOUND, "INTEREST404", "관심 브랜드를 찾을 수 없습니다."),
+    DUPLICATE_INTEREST_BRAND(HttpStatus.CONFLICT, "BRAND409", "이미 관심 브랜드로 등록된 브랜드입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
