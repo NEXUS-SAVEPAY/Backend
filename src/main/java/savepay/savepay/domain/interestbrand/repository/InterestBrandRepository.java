@@ -20,9 +20,7 @@ public interface InterestBrandRepository extends JpaRepository<InterestBrand, Lo
                                        @Param("category") InterestBrandCategory category);
 
     @Query("SELECT ib FROM InterestBrand ib WHERE ib.user = :user AND ib.category = :category ORDER BY ib.id DESC")
-    List<InterestBrand> findRecentByUserAndCategory(
-            @Param("user") User user,
-            @Param("category") InterestBrandCategory category,
-            Pageable pageable
-    );
+    List<InterestBrand> findRecentByUserAndCategory(@Param("user") User user,
+                                                    @Param("category") InterestBrandCategory category,
+                                                    Pageable pageable);
 }
