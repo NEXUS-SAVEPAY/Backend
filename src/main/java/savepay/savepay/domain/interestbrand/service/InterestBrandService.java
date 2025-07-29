@@ -34,6 +34,10 @@ public class InterestBrandService {
         Brand brand = brandRepository.findById(request.getBrandId())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
 
+        if (interestBrandRepository.existsByUserAndBrandAndCategory(user, brand, InterestBrandCategory.INTEREST)) {
+            throw new GeneralException(ErrorStatus.DUPLICATE_INTEREST_BRAND);
+        }
+
         InterestBrand interestBrand = InterestBrand.builder()
                 .brand(brand)
                 .category(InterestBrandCategory.INTEREST)
@@ -69,6 +73,10 @@ public class InterestBrandService {
 
         Brand brand = brandRepository.findById(request.getBrandId())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
+
+        if (interestBrandRepository.existsByUserAndBrandAndCategory(user, brand, InterestBrandCategory.SEARCH)) {
+            return;
+        }
 
         InterestBrand interestBrand = InterestBrand.builder()
                 .brand(brand)
