@@ -9,6 +9,7 @@ import savepay.savepay.domain.interestbrand.converter.InterestBrandConverter;
 import savepay.savepay.domain.interestbrand.dto.InterestBrandRequestDto;
 import savepay.savepay.domain.interestbrand.dto.InterestBrandResponseDto;
 import savepay.savepay.domain.interestbrand.entity.InterestBrand;
+import savepay.savepay.domain.interestbrand.entity.InterestBrandCategory;
 import savepay.savepay.domain.interestbrand.repository.InterestBrandRepository;
 import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.domain.user.repository.UserRepository;
@@ -28,14 +29,14 @@ public class InterestBrandService {
 
     @Transactional
     public void createInterestBrand(String email, InterestBrandRequestDto.toBrandIdDto request) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
+        User user = getUser(email);
 
         Brand brand = brandRepository.findById(request.getBrandId())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
 
         InterestBrand interestBrand = InterestBrand.builder()
                 .brand(brand)
+                .category(InterestBrandCategory.INTEREST)
                 .user(user)
                 .build();
 
@@ -53,13 +54,45 @@ public class InterestBrandService {
 
     @Transactional(readOnly = true)
     public List<InterestBrandResponseDto.InterestBrandInfo> getInterestBrands(String email) {
-        User user = userRepository.findByEmail(email)
-                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
+        User user = getUser(email);
 
         return interestBrandRepository.findByUser(user)
                 .stream()
+                .filter(interestBrand -> interestBrand.getCategory().equals(InterestBrandCategory.INTEREST))
                 .map(InterestBrandConverter::toInterestBrandInfoDto)
                 .collect(Collectors.toList());
+    }
+
+    @Transactional
+    public void createSearchBrands(String email, InterestBrandRequestDto.toBrandIdDto request) {
+        User user = getUser(email);
+
+        Brand brand = brandRepository.findById(request.getBrandId())
+                .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
+
+        InterestBrand interestBrand = InterestBrand.builder()
+                .brand(brand)
+                .category(InterestBrandCategory.SEARCH)
+                .user(user)
+                .build();
+
+        interestBrandRepository.save(interestBrand);
+    }
+
+    @Transactional(readOnly = true)
+    public List<InterestBrandResponseDto.InterestBrandInfo> getSearchBrands(String email) {
+        User user = getUser(email);
+
+        return interestBrandRepository.findByUser(user)
+                .stream()
+                .filter(searchBrand -> searchBrand.getCategory().equals(InterestBrandCategory.SEARCH))
+                .map(InterestBrandConverter::toInterestBrandInfoDto)
+                .collect(Collectors.toList());
+    }
+
+    private User getUser(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
     }
 
     private void validateUserAccess(String email, InterestBrand interestBrand) {
