@@ -16,8 +16,8 @@ public interface InterestBrandRepository extends JpaRepository<InterestBrand, Lo
 
     @Query("SELECT COUNT(ib) > 0 FROM InterestBrand ib WHERE ib.user = :user AND ib.brand = :brand AND ib.category = :category")
     boolean isBrandAlreadyMarkedByUser(@Param("user") User user,
-                                            @Param("brand") Brand brand,
-                                            @Param("category") InterestBrandCategory category);
+                                       @Param("brand") Brand brand,
+                                       @Param("category") InterestBrandCategory category);
 
     @Query("SELECT ib FROM InterestBrand ib WHERE ib.user = :user AND ib.category = :category ORDER BY ib.id DESC")
     List<InterestBrand> findRecentByUserAndCategory(
