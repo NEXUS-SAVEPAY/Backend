@@ -1,11 +1,7 @@
 package savepay.savepay.domain.interestbrand.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.http.HttpStatus;
 import savepay.savepay.domain.brand.entity.Brand;
 import savepay.savepay.domain.common.BaseEntity;
 import savepay.savepay.domain.user.entity.User;
@@ -23,9 +19,13 @@ public class InterestBrand extends BaseEntity {
     @JoinColumn(name = "brand_id")
     private Brand brand;
 
+    @Enumerated(EnumType.STRING)
+    private InterestBrandCategory category;
+
     @Builder
-    public InterestBrand(User user, Brand brand) {
+    public InterestBrand(User user, Brand brand, InterestBrandCategory category) {
         this.user = user;
         this.brand = brand;
+        this.category = category;
     }
 }
