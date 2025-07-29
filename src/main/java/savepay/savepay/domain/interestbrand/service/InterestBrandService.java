@@ -1,6 +1,8 @@
 package savepay.savepay.domain.interestbrand.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import savepay.savepay.domain.brand.entity.Brand;
@@ -34,7 +36,7 @@ public class InterestBrandService {
         Brand brand = brandRepository.findById(request.getBrandId())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
 
-        if (interestBrandRepository.existsByUserAndBrandAndCategory(user, brand, InterestBrandCategory.INTEREST)) {
+        if (interestBrandRepository.isBrandAlreadyMarkedByUser(user, brand, InterestBrandCategory.INTEREST)) {
             throw new GeneralException(ErrorStatus.DUPLICATE_INTEREST_BRAND);
         }
 
@@ -74,7 +76,7 @@ public class InterestBrandService {
         Brand brand = brandRepository.findById(request.getBrandId())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
 
-        if (interestBrandRepository.existsByUserAndBrandAndCategory(user, brand, InterestBrandCategory.SEARCH)) {
+        if (interestBrandRepository.isBrandAlreadyMarkedByUser(user, brand, InterestBrandCategory.SEARCH)) {
             return;
         }
 
@@ -91,9 +93,12 @@ public class InterestBrandService {
     public List<InterestBrandResponseDto.InterestBrandInfo> getSearchBrands(String email) {
         User user = getUser(email);
 
-        return interestBrandRepository.findByUser(user)
+        PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "id"));
+        List<InterestBrand> searchBrands = interestBrandRepository
+                .findRecentByUserAndCategory(user, InterestBrandCategory.SEARCH, pageRequest);
+
+        return searchBrands
                 .stream()
-                .filter(searchBrand -> searchBrand.getCategory().equals(InterestBrandCategory.SEARCH))
                 .map(InterestBrandConverter::toInterestBrandInfoDto)
                 .collect(Collectors.toList());
     }
