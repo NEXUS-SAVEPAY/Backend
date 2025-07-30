@@ -9,7 +9,6 @@ import savepay.savepay.domain.payment.entity.Payment;
 import savepay.savepay.domain.userpayment.entity.UserPayment;
 import savepay.savepay.domain.userpayment.repository.*;
 import savepay.savepay.domain.payment.repository.PaymentRepository;
-import savepay.savepay.domain.userpayment.*;
 import savepay.savepay.domain.payment.converter.PaymentConverter;
 
 import java.util.List;
@@ -69,6 +68,5 @@ public class PaymentService {
     public void deleteUserPayment(Long userId, Long paymentId) {
         // UserPayment에서 삭제
         userPaymentRepository.deleteByUserIdAndPaymentId(userId, paymentId);
-
     }
 }
