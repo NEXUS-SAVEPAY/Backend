@@ -8,7 +8,6 @@ public class PaymentConverter {
 
     public static Payment toEntity(PaymentRequestDto dto) {
         return Payment.builder()
-                .userId(dto.getUserId())
                 .cardId(dto.getCardId())
                 .amount(dto.getAmount())
                 .paymentType(dto.getPaymentType())
@@ -17,7 +16,6 @@ public class PaymentConverter {
     public static PaymentResponseDto toDto(Payment entity) {
         return PaymentResponseDto.builder()
                 .id(entity.getId())
-                .userId(entity.getUserId())
                 .amount(entity.getAmount())
                 .paymentType(entity.getPaymentType())
                 .build();
