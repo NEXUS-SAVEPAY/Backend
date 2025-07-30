@@ -21,6 +21,8 @@ public class Payment extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private PaymentType paymentType; // 결제 수단 타입
 
+    private Long cardId;
+
     private int amount;
 
     private String cardImage;
