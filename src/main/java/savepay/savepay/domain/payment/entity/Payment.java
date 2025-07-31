@@ -6,26 +6,18 @@ import lombok.experimental.SuperBuilder;
 import savepay.savepay.domain.common.BaseEntity;
 
 /*
-    단일 테이블 전략을 사용하기 위해 추상 객체로 설정했습니다.
+    단일 테이블 전략
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @SuperBuilder
 @Getter
-@Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
 @Entity
 public class Payment extends BaseEntity {
 
-    @Enumerated(EnumType.STRING)
-    private PaymentType paymentType; // 결제 수단 타입
+    private String image;
 
-    private Long cardId;
-
-    private int amount;
-
-    private String cardImage;
-    private String cardName;
     private String company;
 }
