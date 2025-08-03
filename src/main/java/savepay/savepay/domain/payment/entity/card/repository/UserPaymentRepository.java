@@ -20,5 +20,19 @@ public interface UserPaymentRepository extends JpaRepository<UserPayment, Long> 
 """)
     List<UserPayment> findUserCardList(@Param("user")User user);
 
+    @Query("""
+            SELECT up FROM UserPayment up
+            JOIN FETCH up.payment p
+            WHERE TYPE(p) = Pay AND up.user = :user
+            ORDER BY up.createdAt
+""")
+    List<UserPayment> findUserPayList(@Param("user")User user);
+
     Optional<UserPayment> findByUserAndPayment(User user, Payment payment);
+
+    @Query("""
+        DELETE from UserPayment up
+        WHERE TYPE(up.payment) = Pay AND up.user = :user
+""")
+    void deletePayAllByUser(User user);
 }
