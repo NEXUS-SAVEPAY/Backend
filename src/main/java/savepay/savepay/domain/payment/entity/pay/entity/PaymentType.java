@@ -5,5 +5,6 @@ public enum PaymentType {
     NAVER,
     KAKAO,
     PAYCO,
-    TOSS
+    TOSS,
+    NONE
 }
