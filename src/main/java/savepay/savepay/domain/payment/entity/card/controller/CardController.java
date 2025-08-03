@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import savepay.savepay.domain.payment.entity.card.dto.CardRequestDto;
 import savepay.savepay.domain.payment.entity.card.dto.CardResponseDto;
 import savepay.savepay.domain.payment.entity.card.service.CardService;
-import savepay.savepay.domain.payment.service.UserCardService;
+import savepay.savepay.domain.usercard.service.UserCardService;
 import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.global.ApiResponse;
 

@@ -1,4 +1,4 @@
-package savepay.savepay.domain.payment.service;
+package savepay.savepay.domain.usercard.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -7,7 +7,7 @@ import savepay.savepay.domain.payment.entity.card.converter.CardConverter;
 import savepay.savepay.domain.payment.entity.card.dto.CardResponseDto;
 import savepay.savepay.domain.payment.entity.card.entity.Card;
 import savepay.savepay.domain.payment.entity.card.repository.CardRepository;
-import savepay.savepay.domain.payment.entity.card.repository.UserPaymentRepository;
+import savepay.savepay.domain.userpayment.repository.UserPaymentRepository;
 import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.domain.userpayment.entity.UserPayment;
 import savepay.savepay.global.code.status.ErrorStatus;
@@ -32,7 +32,6 @@ public class UserCardService {
                 .collect(Collectors.toList());
     }
 
-    @Transactional
     public void registerUserCard(Long cardId, User user) {
         Card card = cardRepository.findById(cardId).orElseThrow(
                 () -> new GeneralException(ErrorStatus.CARD_NOT_FOUND));
