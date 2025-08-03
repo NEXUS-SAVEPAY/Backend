@@ -1,6 +1,9 @@
 package savepay.savepay.domain.userpayment.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import lombok.*;
 import savepay.savepay.domain.common.BaseEntity;
 import savepay.savepay.domain.payment.entity.Payment;

@@ -1,7 +1,13 @@
 package savepay.savepay.domain.payment.entity;
 
-import jakarta.persistence.*;
-import lombok.*;
+import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.InheritanceType;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import savepay.savepay.domain.common.BaseEntity;
 
