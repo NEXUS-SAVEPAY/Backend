@@ -14,7 +14,6 @@ public interface CardRepository extends JpaRepository<Card, Long> {
             WHERE c.company = :company
             AND c.cardName LIKE CONCAT('%', :cardName, '%')
             LIMIT 1
-
 """)
     Optional<Card> searchCard(@Param("card")String company, @Param("cardName")String cardName);
 
