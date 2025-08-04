@@ -39,8 +39,6 @@ public class UserCardService {
         UserPayment userPayment = UserPayment.createUserPayment(user, card, false);
 
         userPaymentRepository.save(userPayment);
-
-        return;
     }
 
     @Transactional
