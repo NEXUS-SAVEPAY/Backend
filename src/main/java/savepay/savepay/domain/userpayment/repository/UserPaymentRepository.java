@@ -1,6 +1,7 @@
 package savepay.savepay.domain.userpayment.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import savepay.savepay.domain.payment.entity.Payment;
@@ -30,9 +31,5 @@ public interface UserPaymentRepository extends JpaRepository<UserPayment, Long> 
 
     Optional<UserPayment> findByUserAndPayment(User user, Payment payment);
 
-    @Query("""
-        DELETE from UserPayment up
-        WHERE TYPE(up.payment) = Pay AND up.user = :user
-""")
-    void deletePayAllByUser(User user);
+
 }

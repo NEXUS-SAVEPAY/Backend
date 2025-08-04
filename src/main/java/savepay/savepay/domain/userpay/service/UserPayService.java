@@ -39,7 +39,7 @@ public class UserPayService {
 
     @Transactional
     public void modifyUserCard(PayRequestDto.PayRequestListDto payRequestListDto, User user) {
-        userPaymentRepository.deletePayAllByUser(user);
+        userPaymentRepository.deleteAll(userPaymentRepository.findUserPayList(user));
 
         payRequestListDto.payRequestOneDtoList()
                 .forEach(payRequestOneDto -> {
