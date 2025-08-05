@@ -20,7 +20,7 @@ public class CardService {
     private final CardRepository cardRepository;
 
     public CardResponseDto searchCard(CardRequestDto.CardSearchDto cardSearchDto) {
-        Card card = cardRepository.searchCard(cardSearchDto.company(), cardSearchDto.cardName())
+        Card card = cardRepository.findFirstByCompanyAndCardNameContaining(cardSearchDto.company(), cardSearchDto.cardName())
                 .orElseThrow(
                         () -> new GeneralException(ErrorStatus.CARD_NOT_FOUND));
 
