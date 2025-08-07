@@ -3,11 +3,15 @@ package savepay.savepay.domain.brand.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import savepay.savepay.domain.brand.dto.BrandRequestDto;
 import savepay.savepay.domain.brand.dto.BrandResponseDto;
 import savepay.savepay.domain.brand.service.BrandService;
 import savepay.savepay.global.ApiResponse;
+
 import java.util.List;
 
 @RestController

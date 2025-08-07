@@ -1,11 +1,12 @@
 package savepay.savepay.domain.telecom.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import savepay.savepay.domain.common.BaseEntity;
-import savepay.savepay.domain.user.entity.User;
 
 @Entity
 @Getter

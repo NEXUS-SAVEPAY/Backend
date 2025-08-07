@@ -19,7 +19,7 @@ import savepay.savepay.domain.usertelecom.repository.UserTelecomRepository;
 import savepay.savepay.global.exception.GeneralException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
 @Transactional
@@ -41,7 +41,7 @@ class UserTelecomServiceTest {
 
     @BeforeEach
     void before() {
-        user = new User("test@example.com", "테스터", Social.KAKAO);
+        user = User.createUser("test@example.com", "테스터", Social.KAKAO);
         userRepository.save(user);
     }
 

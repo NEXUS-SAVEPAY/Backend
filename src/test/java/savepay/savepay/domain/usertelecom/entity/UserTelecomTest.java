@@ -6,16 +6,14 @@ import savepay.savepay.domain.telecom.entity.TelecomName;
 import savepay.savepay.domain.user.entity.Social;
 import savepay.savepay.domain.user.entity.User;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 
 class UserTelecomTest {
     @Test
     void createUserTelecom() {
         //given
-        User user = new User("lee", "12341234@email.com", Social.NAVER);
+        User user =  User.createUser("lee", "12341234@email.com", Social.NAVER);
         Telecom telecom = new Telecom(TelecomName.KT);
         //when
         UserTelecom userTelecom = UserTelecom.createUserTelecom(user, telecom, TelecomGrade.VIP, true);
