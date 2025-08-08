@@ -2,7 +2,6 @@ package savepay.savepay.global.security;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -136,13 +135,6 @@ public class JwtTokenProvider {
         return claims.getExpiration();
     }
 
-    public String resolveToken(HttpServletRequest request) {
-        return request.getHeader("Authorization");
-    }
 
-    public UsernamePasswordAuthenticationToken getAuthenticationToken(String token) {
-        String email = getUsernameFromToken(token);
-        UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
-    }
+
 }
