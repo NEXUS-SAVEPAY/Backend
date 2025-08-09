@@ -4,10 +4,12 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import savepay.savepay.domain.brand.dto.BrandRequestDto;
 import savepay.savepay.domain.brand.dto.BrandResponseDto;
 import savepay.savepay.domain.brand.service.BrandService;
 import savepay.savepay.global.ApiResponse;
+
 import java.util.List;
 
 @RestController
@@ -22,5 +24,20 @@ public class BrandController {
     @Operation(summary = "브랜드 검색 API", description = "사용자가 브랜드 검색할 때 조회하는 메서드")
     public ApiResponse<List<BrandResponseDto.BrandInfoDto>> searchBrand(@RequestBody BrandRequestDto.BrandNameRequestDto request) {
         return ApiResponse.onSuccess(brandService.searchBrand(request));
+    }
+
+    @GetMapping("/")
+    @Operation(summary = "브랜드 생성 API", description = "브랜드를 생성하는 메서드")
+    public ApiResponse<String> createBrand(@RequestPart(name = "ImageFile", required = false) MultipartFile img,
+                                           @RequestBody BrandRequestDto.BrandInfoRequestDto request) {
+        brandService.createBrand(img, request);
+        return ApiResponse.onSuccess("Successfully created brand");
+    }
+
+    @DeleteMapping("/{brandId}")
+    @Operation(summary = "브랜드 삭제 API", description = "브랜드를 삭제하는 메서드")
+    public ApiResponse<String> deleteBrand(@PathVariable Long brandId) {
+        brandService.deleteBrand(brandId);
+        return ApiResponse.onSuccess("Successfully deleted brand");
     }
 }
