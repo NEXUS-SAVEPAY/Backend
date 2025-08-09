@@ -144,14 +144,4 @@ public class JwtTokenProvider {
         return getTokenType(token).equals("refresh");
     }
 
-    public boolean validateAccessToken(String token) {
-        return isAccess(token) && validateToken(token);
-    }
-
-    public boolean validateRefreshToken(String token) {
-        return isRefresh(token) && validateToken(token);
-    }
-
-
-
 }
