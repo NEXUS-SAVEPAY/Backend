@@ -28,7 +28,7 @@ public class CustomJwtFilter extends OncePerRequestFilter {
 
         String token = request.getHeader("Authorization");
 
-        if (token != null && jwtTokenProvider.validateToken(token)) {
+        if (token != null && jwtTokenProvider.validateAccessToken(token)) {
             String email = jwtTokenProvider.getUsernameFromToken(token);
             UsernamePasswordAuthenticationToken authenticationToken = getAuthenticationToken(email);
             SecurityContextHolder.getContextHolderStrategy().getContext().setAuthentication(authenticationToken);

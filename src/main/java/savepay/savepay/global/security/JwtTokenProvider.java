@@ -14,6 +14,7 @@ import savepay.savepay.global.security.service.CustomUserDetailsService;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
+import java.util.Objects;
 
 // made by claude
 @Component
@@ -27,10 +28,10 @@ public class JwtTokenProvider {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
-    @Value("${jwt.expiration:86400000}") // 24시간
+    @Value("${jwt.expiration}") // 24시간
     private long jwtExpirationMs;
 
-    @Value("${jwt.refresh-expiration:604800000}") // 7일
+    @Value("${jwt.refresh-expiration}") // 7일
     private long refreshTokenExpirationMs;
 
     private SecretKey getSigningKey() {
@@ -133,6 +134,22 @@ public class JwtTokenProvider {
                 .getBody();
 
         return claims.getExpiration();
+    }
+
+    public boolean isAccess(String token) {
+        return getTokenType(token).equals("access");
+    }
+
+    public boolean isRefresh(String token) {
+        return getTokenType(token).equals("refresh");
+    }
+
+    public boolean validateAccessToken(String token) {
+        return isAccess(token) && validateToken(token);
+    }
+
+    public boolean validateRefreshToken(String token) {
+        return isRefresh(token) && validateToken(token);
     }
 
 
