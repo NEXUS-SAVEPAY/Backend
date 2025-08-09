@@ -1,4 +1,4 @@
-package savepay.savepay.config;
+package savepay.savepay.config.swagger;
 
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
