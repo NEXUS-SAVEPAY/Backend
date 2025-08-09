@@ -27,7 +27,7 @@ public class AwsS3Service {
     public String uploadFile(MultipartFile multipartFile) {
 
         if (multipartFile == null || multipartFile.isEmpty()) {
-            return null;
+            throw new GeneralException(ErrorStatus.S3_EMPTY_FILE);
         }
 
         String fileName = createFileName(multipartFile.getOriginalFilename());
