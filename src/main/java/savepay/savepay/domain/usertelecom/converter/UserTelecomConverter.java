@@ -1,6 +1,5 @@
 package savepay.savepay.domain.usertelecom.converter;
 
-import org.springframework.stereotype.Component;
 import savepay.savepay.domain.telecom.converter.TelecomConverter;
 import savepay.savepay.domain.telecom.entity.Telecom;
 import savepay.savepay.domain.telecom.entity.TelecomName;
