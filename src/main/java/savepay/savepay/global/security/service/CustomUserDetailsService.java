@@ -6,6 +6,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import savepay.savepay.domain.user.repository.UserRepository;
+import savepay.savepay.global.code.status.ErrorStatus;
+import savepay.savepay.global.exception.GeneralException;
 import savepay.savepay.global.security.domain.CustomUserDetails;
 
 @Service
@@ -25,7 +27,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userRepository.findByEmail(username)
                 .map(CustomUserDetails::new)
                 .orElseThrow(() ->
-                        new UsernameNotFoundException("해당 유저는 찾을 수 없습니다.")
+                        new GeneralException(ErrorStatus.USER_NOT_FOUND)
                 );
     }
+
 }
