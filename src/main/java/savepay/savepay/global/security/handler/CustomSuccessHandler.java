@@ -1,6 +1,5 @@
 package savepay.savepay.global.security.handler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -8,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import savepay.savepay.global.security.JwtTokenProvider;
 import savepay.savepay.global.security.domain.ProviderUser;
 import savepay.savepay.global.security.domain.service.TokenResponseWriter;
+import savepay.savepay.global.security.domain.service.TokenService;
 
 import java.io.IOException;
 
@@ -21,7 +20,7 @@ import java.io.IOException;
 @RequiredArgsConstructor
 public class CustomSuccessHandler implements AuthenticationSuccessHandler {
 
-    private final JwtTokenProvider jwtTokenProvider;
+    private final TokenService tokenService;
 
     private final TokenResponseWriter tokenResponseWriter;
 
@@ -30,8 +29,8 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
         ProviderUser principal = (ProviderUser) authentication.getPrincipal();
 
         String email = principal.getEmail();
-        String accessToken = jwtTokenProvider.generateAccessToken(email);
-        String refreshToken = jwtTokenProvider.generateRefreshToken(email);
+        String accessToken = tokenService.generateAccessToken(email);
+        String refreshToken = tokenService.generateRefreshToken(email);
 
         tokenResponseWriter.write(response, accessToken, refreshToken);
     }
