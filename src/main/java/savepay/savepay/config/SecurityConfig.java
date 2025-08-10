@@ -20,6 +20,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import savepay.savepay.global.security.filter.CustomJwtFilter;
+import savepay.savepay.global.security.filter.JwtExceptionFilter;
 import savepay.savepay.global.security.handler.CustomFailureHandler;
 import savepay.savepay.global.security.handler.CustomSuccessHandler;
 import savepay.savepay.global.security.service.CustomOAuth2UserService;
@@ -36,6 +37,8 @@ public class SecurityConfig {
     private final CustomFailureHandler customFailureHandler;
 
     private final CustomJwtFilter customJwtFilter;
+
+    private final JwtExceptionFilter exceptionFilter;
 
     @Value("${spring.security.user.name}")
     private String swaggerAdminName;
@@ -88,7 +91,8 @@ public class SecurityConfig {
                         .userInfoEndpoint(userinfo -> userinfo.userService(customOAuth2UserService))
                         .successHandler(customSuccessHandler)
                         .failureHandler(customFailureHandler));
-        http.addFilterBefore(customJwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(exceptionFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(customJwtFilter, JwtExceptionFilter.class);
         return http.build();
     }
 
