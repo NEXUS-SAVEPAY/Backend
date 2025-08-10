@@ -3,10 +3,10 @@ name: Deploy To EC2
 on:
   push:
     branches:
-      - main
+      - refactor/#24
   pull_request:
     branches:
-      - main
+      - refactor/#24
 
 jobs:
   deploy:
