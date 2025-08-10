@@ -2,6 +2,7 @@ package savepay.savepay.config;
 
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
@@ -11,6 +12,7 @@ import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -34,6 +36,15 @@ public class SecurityConfig {
     private final CustomFailureHandler customFailureHandler;
 
     private final CustomJwtFilter customJwtFilter;
+
+    @Value("${spring.security.user.name}")
+    private String swaggerAdminName;
+
+    @Value("${spring.security.user.password}")
+    private String swaggerAdminPassword;
+
+    @Value("${spring.security.user.roles}")
+    private String[] swaggerAdminRoles;
     /*
         Swagger 접속을 위한 위한 Security Config 입니다.
      */
@@ -45,15 +56,15 @@ public class SecurityConfig {
                         auth -> auth
                                 .requestMatchers("/login", "/logout")
                                 .permitAll()
-                                .anyRequest().permitAll() // 임시
-//                                .anyRequest().hasRole("ADMIN") // swagger-ui 접근은 admin 이상 권한 요구
+                                .anyRequest().hasRole("ADMIN")
+//                                .anyRequest().authenticated() // swagger-ui 접근은 admin 이상 권한 요구
                 ).formLogin(Customizer.withDefaults())
                 .sessionManagement(
                         session -> session.invalidSessionUrl("/login") // 세션 만료시 로그인 페이지로 이동
                                 .maximumSessions(7)) // ADMIN 로그인 4명까지 가능 (스터디원 4명)
                 .csrf(
-                        csrf -> csrf.disable())// csrf 끄기
-                .userDetailsService(userDetailsService());
+                        csrf -> csrf.disable())
+                .userDetailsService(userDetailsService());// csrf 끄기
 
 
 
@@ -61,7 +72,7 @@ public class SecurityConfig {
     }
 
     @Bean
-    @Order(2)
+    @Order(3)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher("/api/**", "/oauth2/**", "/oauth2Login/**", "/login/**")
                 .authorizeHttpRequests(authorize -> authorize
@@ -69,23 +80,22 @@ public class SecurityConfig {
                         .permitAll()
                         .anyRequest()
                         .authenticated())
+                .sessionManagement(session ->
+                        session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .csrf(
                         csrf -> csrf.disable())
                 .oauth2Login(oauth2 -> oauth2
                         .userInfoEndpoint(userinfo -> userinfo.userService(customOAuth2UserService))
                         .successHandler(customSuccessHandler)
                         .failureHandler(customFailureHandler));
-//                .formLogin(Customizer.withDefaults()); // 임시 테스트 용으로, 일단 swagger 제외한 모든 api 제한없이 접근 가능
-//        http.oauth2Client(Customizer.withDefaults());
         http.addFilterBefore(customJwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 
-
     @Bean
-    @Order(3)
+    @Order(2)
     public SecurityFilterChain testSecurityChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/test/**")
+        http.securityMatcher("/test/**", "/api/auth/**")
                 .authorizeHttpRequests(authorize -> authorize
                         .anyRequest().permitAll()
                 ).csrf(
@@ -105,14 +115,11 @@ public class SecurityConfig {
         return http.build();
     }
 
-    /*
-        임시 유저 정보들...
-     */
     @Bean
     public UserDetailsService userDetailsService(){
-        UserDetails user = User.withUsername("user").password("{noop}1111").roles("USER").build();
-        UserDetails admin = User.withUsername("admin").password("{noop}1111").roles("ADMIN").build();
-        return new InMemoryUserDetailsManager(user, admin);
+        UserDetails admin = User.withUsername(swaggerAdminName).password(swaggerAdminPassword)
+                .roles(swaggerAdminRoles).build();
+        return new InMemoryUserDetailsManager(admin);
     }
 
     /*
@@ -132,7 +139,4 @@ public class SecurityConfig {
         return (web) -> web.ignoring().requestMatchers("/static/js/**", "/static/images/**", "/static/css/**","/static/scss/**");
     }
 
-
-
 }
-
