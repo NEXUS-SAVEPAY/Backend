@@ -7,12 +7,9 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import savepay.savepay.global.security.JwtTokenProvider;
 import savepay.savepay.global.security.domain.service.TokenService;
-import savepay.savepay.global.security.service.CustomUserDetailsService;
 
 import java.io.IOException;
 
@@ -27,7 +24,7 @@ public class CustomJwtFilter extends OncePerRequestFilter {
 
         String token = request.getHeader("Authorization");
 
-        if (token != null && tokenService.validateAccessToken(token)) {
+        if (token != null) {
             UsernamePasswordAuthenticationToken authenticationToken = tokenService.getAuthenticationToken(token);
             SecurityContextHolder.getContextHolderStrategy().getContext().setAuthentication(authenticationToken);
         }
