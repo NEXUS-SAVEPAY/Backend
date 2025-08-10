@@ -5,6 +5,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.domain.user.repository.UserRepository;
 import savepay.savepay.global.code.status.ErrorStatus;
@@ -28,6 +29,8 @@ public class TokenService {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final CustomUserDetailsService customUserDetailsService;
+
+    private static final String BEARER_PREFIX = "Bearer ";
 
     public boolean validateRefreshToken(String refreshToken) {
         if (!jwtTokenProvider.isRefresh(refreshToken) || !jwtTokenProvider.validateToken(refreshToken)) {
@@ -55,16 +58,20 @@ public class TokenService {
     }
 
     public UsernamePasswordAuthenticationToken getAuthenticationToken(String token) {
-        if (!validateAccessToken(token)) {
+        String accessToken = resolveBearerToken(token).orElseThrow(() ->
+                new GeneralException(ErrorStatus.INVALID_TOKEN));
+        if (!validateAccessToken(accessToken)) {
             throw new GeneralException(ErrorStatus.INVALID_TOKEN);
         }
-        String email = jwtTokenProvider.getUsernameFromToken(token);
+        String email = jwtTokenProvider.getUsernameFromToken(accessToken);
         UserDetails userDetails = customUserDetailsService.loadUserByUsername(email);
         return new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
     }
 
 
-    public String reissueAccessToken(String refreshToken) {
+    public String reissueAccessToken(String token) {
+        String refreshToken = resolveBearerToken(token).orElseThrow(() ->
+                new GeneralException(ErrorStatus.INVALID_TOKEN));
         if (!validateRefreshToken(refreshToken)) {
             throw new GeneralException(ErrorStatus.INVALID_TOKEN);
         }
@@ -82,6 +89,14 @@ public class TokenService {
         refreshTokenRepository.save(refreshTokenObject);
 
         return refreshToken;
+    }
+
+    public static Optional<String> resolveBearerToken(String BearerToken) {
+        if (StringUtils.hasText(BearerToken) && BearerToken.regionMatches(true, 0, BEARER_PREFIX, 0, BEARER_PREFIX.length())) {
+            String token = BearerToken.substring(BEARER_PREFIX.length()).trim();
+            return StringUtils.hasText(token) ? Optional.of(token) : Optional.empty();
+        }
+        return Optional.empty();
     }
 
 }
