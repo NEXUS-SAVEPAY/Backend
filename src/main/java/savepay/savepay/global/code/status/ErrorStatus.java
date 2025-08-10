@@ -21,8 +21,10 @@ public enum ErrorStatus implements BaseErrorCode {
     BRAND_NOT_FOUND(HttpStatus.NOT_FOUND, "BRAND404", "브랜드를 찾을 수 없습니다."),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "USER404", "회원 정보를 찾을 수 없습니다."),
     INTERESTED_BRAND_NOT_FOUND(HttpStatus.NOT_FOUND, "INTEREST404", "관심 브랜드를 찾을 수 없습니다."),
-    DUPLICATE_INTEREST_BRAND(HttpStatus.CONFLICT, "BRAND409", "이미 관심 브랜드로 등록된 브랜드입니다.");
-
+    DUPLICATE_INTEREST_BRAND(HttpStatus.CONFLICT, "BRAND409", "이미 관심 브랜드로 등록된 브랜드입니다."),
+    S3_FAILED(HttpStatus.INTERNAL_SERVER_ERROR,"S34001","사진 업로드에 실패했습니다."),
+    S3_FORMAT(HttpStatus.BAD_REQUEST, "S34002","잘못된 형식의 파일입니다."),
+    S3_EMPTY_FILE(HttpStatus.BAD_REQUEST, "S34003", "업로드할 파일이 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
