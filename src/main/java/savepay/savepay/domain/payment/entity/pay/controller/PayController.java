@@ -1,0 +1,34 @@
+package savepay.savepay.domain.payment.entity.pay.controller;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import savepay.savepay.domain.payment.entity.pay.dto.PayRequestDto;
+import savepay.savepay.domain.payment.entity.pay.dto.PayResponseDto;
+import savepay.savepay.domain.userpay.service.UserPayService;
+import savepay.savepay.domain.user.entity.User;
+import savepay.savepay.global.ApiResponse;
+
+@RestController
+@RequiredArgsConstructor
+@RequestMapping("/api/pays")
+public class PayController {
+
+    private final UserPayService userPayService;
+
+    @GetMapping("/user")
+    public ApiResponse<PayResponseDto.PayResponseListDto> findPay(User user) {
+        return ApiResponse.onSuccess(userPayService.findUserPayList(user));
+    }
+
+    @PostMapping("/user")
+    public ApiResponse<String> postPay(@RequestBody PayRequestDto.PayRequestListDto payRequestListDto, User user) {
+        userPayService.registerUserPay(payRequestListDto, user);
+        return ApiResponse.onSuccess("User's pays are successfully registered");
+    }
+
+    @DeleteMapping("/user")
+    public ApiResponse<String> modifyPay(@RequestBody PayRequestDto.PayRequestListDto payRequestListDto, User user) {
+        userPayService.modifyUserCard(payRequestListDto, user);
+        return ApiResponse.onSuccess("User's card is successfully deleted");
+    }
+}
