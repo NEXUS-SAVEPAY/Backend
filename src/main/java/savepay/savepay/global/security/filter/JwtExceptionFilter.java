@@ -30,15 +30,15 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
         } catch (BadCredentialsException ex) {
             writeDefault(res);
             ApiResponse<Object> body = ApiResponse.onFailure(HttpStatus.UNAUTHORIZED.toString(), ex.getMessage(), null);
-            writeBody(res, HttpStatus.UNAUTHORIZED.toString(), body);
+            writeBody(res, body);
         } catch (AccessDeniedException ex) {
             writeDefault(res);
             ApiResponse<Object> body = ApiResponse.onFailure(HttpStatus.FORBIDDEN.toString(), ex.getMessage(), null);
-            writeBody(res, HttpStatus.FORBIDDEN.toString(), body);
+            writeBody(res, body);
         } catch (GeneralException ex) {
             writeDefault(res);
             ApiResponse<Object> body = ApiResponse.onFailure(ex.getErrorReasonHttpStatus().getCode(), ex.getErrorReasonHttpStatus().getMessage(), null);
-            writeBody(res, ex.getErrorReasonHttpStatus().getCode(), body);
+            writeBody(res, body);
         }
     }
 
@@ -46,8 +46,7 @@ public class JwtExceptionFilter extends OncePerRequestFilter {
         res.setContentType("application/json;charset=UTF-8");
     }
 
-    private void writeBody(HttpServletResponse res, String status, ApiResponse<Object> body) throws IOException {
-        res.setStatus(Integer.getInteger(status));
+    private void writeBody(HttpServletResponse res, ApiResponse<Object> body) throws IOException {
         String json = objectMapper.writeValueAsString(body);
         res.getWriter().write(json);
     }
