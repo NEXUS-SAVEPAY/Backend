@@ -8,7 +8,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 import savepay.savepay.global.ApiResponse;
 import savepay.savepay.global.exception.GeneralException;
@@ -16,7 +15,6 @@ import savepay.savepay.global.exception.GeneralException;
 import java.io.IOException;
 import java.nio.file.AccessDeniedException;
 
-@Component
 @RequiredArgsConstructor
 public class JwtExceptionFilter extends OncePerRequestFilter {
 
