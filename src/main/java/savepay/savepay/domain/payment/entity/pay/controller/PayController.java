@@ -28,7 +28,7 @@ public class PayController {
         return ApiResponse.onSuccess("User's pays are successfully registered");
     }
 
-    @DeleteMapping("/user")
+    @PutMapping("/user")
     public ApiResponse<String> modifyPay(@RequestBody PayRequestDto.PayRequestListDto payRequestListDto,
                                          @UserInjection User user) {
         userPayService.modifyUserCard(payRequestListDto, user);
