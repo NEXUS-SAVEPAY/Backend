@@ -28,9 +28,7 @@ public class UserTelecomService {
 
     @Transactional
     public UserTelecomResponseDTO connectTelecom(UserTelecomRequestDTO requestDTO, User user) {
-        TelecomName telecomName = TelecomConverter.nameToEnum(requestDTO.telecomName());
-
-        Telecom telecom = telecomRepository.findByTelecomName(telecomName);
+        Telecom telecom = telecomRepository.findByTelecomName(requestDTO.telecomName());
 
         UserTelecom userTelecom = UserTelecomConverter.toEntity(user, telecom, requestDTO);
 
