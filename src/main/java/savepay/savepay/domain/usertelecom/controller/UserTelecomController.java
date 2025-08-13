@@ -10,6 +10,7 @@ import savepay.savepay.domain.usertelecom.dto.UserTelecomRequestDTO;
 import savepay.savepay.domain.usertelecom.dto.UserTelecomResponseDTO;
 import savepay.savepay.domain.usertelecom.service.UserTelecomService;
 import savepay.savepay.global.ApiResponse;
+import savepay.savepay.global.security.resolver.UserInjection;
 
 /*
     추후 SpringSecurity 연동으로 User를 자동으로 주입받을 수 있다고 가정하고 작성했습니다.
@@ -23,12 +24,12 @@ public class UserTelecomController {
     private final UserTelecomService userTelecomService;
 
     @GetMapping("/")
-    ApiResponse<UserTelecomResponseDTO> findUserTelecom(User user) {
+    ApiResponse<UserTelecomResponseDTO> findUserTelecom(@UserInjection User user) {
         return ApiResponse.onSuccess(userTelecomService.findTelecom(user));
     }
 
     @PostMapping("/")
-    ApiResponse<UserTelecomResponseDTO> connectUserTelecom(User user, UserTelecomRequestDTO dto) {
+    ApiResponse<UserTelecomResponseDTO> connectUserTelecom(@UserInjection User user, UserTelecomRequestDTO dto) {
         return ApiResponse.onSuccess(userTelecomService.connectTelecom(dto, user));
     }
 }
