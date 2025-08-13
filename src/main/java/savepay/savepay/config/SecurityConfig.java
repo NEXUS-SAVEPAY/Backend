@@ -1,6 +1,7 @@
 package savepay.savepay.config;
 
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -19,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import savepay.savepay.global.security.domain.token.service.TokenService;
 import savepay.savepay.global.security.filter.CustomJwtFilter;
 import savepay.savepay.global.security.filter.JwtExceptionFilter;
 import savepay.savepay.global.security.handler.CustomFailureHandler;
@@ -36,9 +38,10 @@ public class SecurityConfig {
 
     private final CustomFailureHandler customFailureHandler;
 
-    private final CustomJwtFilter customJwtFilter;
+    private final TokenService tokenService;
 
-    private final JwtExceptionFilter exceptionFilter;
+    private final ObjectMapper objectMapper;
+
 
     @Value("${spring.security.user.name}")
     private String swaggerAdminName;
@@ -104,8 +107,8 @@ public class SecurityConfig {
                         .successHandler(customSuccessHandler)
                         .failureHandler(customFailureHandler));
 
-        http.addFilterBefore(exceptionFilter, UsernamePasswordAuthenticationFilter.class);
-        http.addFilterAfter(customJwtFilter, JwtExceptionFilter.class);
+        http.addFilterBefore(new JwtExceptionFilter(objectMapper), UsernamePasswordAuthenticationFilter.class);
+        http.addFilterAfter(new CustomJwtFilter(tokenService), JwtExceptionFilter.class);
         return http.build();
     }
 
