@@ -1,4 +1,4 @@
-package savepay.savepay.global.security.domain;
+package savepay.savepay.global.security.domain.oauth2user.entity;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.oauth2.core.user.OAuth2User;

@@ -1,4 +1,4 @@
-package savepay.savepay.global.security.domain;
+package savepay.savepay.global.security.domain.token.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

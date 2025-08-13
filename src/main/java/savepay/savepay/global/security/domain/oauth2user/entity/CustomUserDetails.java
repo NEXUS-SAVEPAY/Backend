@@ -1,4 +1,4 @@
-package savepay.savepay.global.security.domain;
+package savepay.savepay.global.security.domain.oauth2user.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;

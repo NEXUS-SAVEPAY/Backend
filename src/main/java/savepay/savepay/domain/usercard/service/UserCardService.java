@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class UserCardService {
 
@@ -32,6 +32,7 @@ public class UserCardService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void registerUserCard(Long cardId, User user) {
         Card card = cardRepository.findById(cardId).orElseThrow(
                 () -> new GeneralException(ErrorStatus.CARD_NOT_FOUND));

@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import savepay.savepay.domain.user.repository.UserRepository;
 import savepay.savepay.global.code.status.ErrorStatus;
 import savepay.savepay.global.exception.GeneralException;
-import savepay.savepay.global.security.domain.CustomUserDetails;
+import savepay.savepay.global.security.domain.oauth2user.entity.CustomUserDetails;
 
 @Service
 @RequiredArgsConstructor

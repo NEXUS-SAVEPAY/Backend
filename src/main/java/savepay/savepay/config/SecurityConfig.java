@@ -54,22 +54,34 @@ public class SecurityConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain swaggerFilterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/swagger-ui/**", "/login", "/logout")
+        http.securityMatcher("/swagger-ui/**", "/login", "/logout", "/test/**")
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/login", "/logout")
                                 .permitAll()
                                 .anyRequest().hasRole("ADMIN")
-//                                .anyRequest().authenticated() // swagger-ui 접근은 admin 이상 권한 요구
                 ).formLogin(Customizer.withDefaults())
                 .sessionManagement(
                         session -> session.invalidSessionUrl("/login") // 세션 만료시 로그인 페이지로 이동
-                                .maximumSessions(7)) // ADMIN 로그인 4명까지 가능 (스터디원 4명)
+                                .maximumSessions(7))
                 .csrf(
                         csrf -> csrf.disable())
                 .userDetailsService(userDetailsService());// csrf 끄기
 
 
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
+    public SecurityFilterChain testSecurityChain(HttpSecurity http) throws Exception {
+        http.securityMatcher("/api/auth/**")
+                .authorizeHttpRequests(authorize -> authorize
+                        .anyRequest().permitAll()
+                ).csrf(
+                        csrf -> csrf.disable()
+                );
 
         return http.build();
     }
@@ -91,21 +103,9 @@ public class SecurityConfig {
                         .userInfoEndpoint(userinfo -> userinfo.userService(customOAuth2UserService))
                         .successHandler(customSuccessHandler)
                         .failureHandler(customFailureHandler));
+
         http.addFilterBefore(exceptionFilter, UsernamePasswordAuthenticationFilter.class);
         http.addFilterAfter(customJwtFilter, JwtExceptionFilter.class);
-        return http.build();
-    }
-
-    @Bean
-    @Order(2)
-    public SecurityFilterChain testSecurityChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/test/**", "/api/auth/**")
-                .authorizeHttpRequests(authorize -> authorize
-                        .anyRequest().permitAll()
-                ).csrf(
-                        csrf -> csrf.disable()
-                );
-
         return http.build();
     }
 
@@ -124,18 +124,6 @@ public class SecurityConfig {
         UserDetails admin = User.withUsername(swaggerAdminName).password(swaggerAdminPassword)
                 .roles(swaggerAdminRoles).build();
         return new InMemoryUserDetailsManager(admin);
-    }
-
-    /*
-        role 간의 계층적 구조 추가를 위하여 Hierarchy를 추가합니다.
-        상위 role은 하위 role의 권한이 필요하더라도 접근할 수 있습니다.
-        (Hierarchy 설정을 안하면 접근 못합니다!)
-     */
-    @Bean
-    public RoleHierarchy roleHierarchy() {
-        return RoleHierarchyImpl.fromHierarchy(
-                "ROLE_ADMIN > ROLE_USER"
-        );
     }
 
     @Bean

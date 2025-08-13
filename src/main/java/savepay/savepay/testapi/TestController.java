@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.domain.user.repository.UserRepository;
 import savepay.savepay.domain.user.service.UserService;
-import savepay.savepay.global.security.domain.service.TokenService;
+import savepay.savepay.global.security.domain.token.service.TokenService;
 
 /**
  * 테스트 전용으로 만들어진 API입니다.
