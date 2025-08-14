@@ -29,7 +29,7 @@ public class TokenResponseWriter {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
 
-        response.sendRedirect("/api/auth/done?accessToken" + access + "&refreshToken" + refresh);
+        response.sendRedirect("/api/auth/done?accessToken=" + access + "&refreshToken=" + refresh);
     }
 
     public void writeAccessOnly(HttpServletResponse response, String access) throws IOException {
