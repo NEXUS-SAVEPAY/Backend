@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,12 +19,17 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import savepay.savepay.global.security.domain.token.service.TokenService;
 import savepay.savepay.global.security.filter.CustomJwtFilter;
 import savepay.savepay.global.security.filter.JwtExceptionFilter;
 import savepay.savepay.global.security.handler.CustomFailureHandler;
 import savepay.savepay.global.security.handler.CustomSuccessHandler;
 import savepay.savepay.global.security.service.CustomOAuth2UserService;
+
+import java.util.List;
 
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -57,11 +61,13 @@ public class SecurityConfig {
     @Bean
     @Order(1)
     public SecurityFilterChain swaggerFilterChain(HttpSecurity http) throws Exception {
-        http.securityMatcher("/swagger-ui/**", "/login", "/logout", "/test/**")
+        http.securityMatcher("/swagger-ui/**", "/v3/api-docs/**", "/login", "/logout", "/test/**")
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/login", "/logout")
                                 .permitAll()
+                                .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                                 .anyRequest().hasRole("ADMIN")
                 ).formLogin(Customizer.withDefaults())
                 .sessionManagement(
@@ -93,9 +99,15 @@ public class SecurityConfig {
     @Order(3)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.securityMatcher("/api/**", "/oauth2/**", "/oauth2Login/**", "/login/**")
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/oauth2Login/**", "/oauth2/**","/login/**", "/", "/error")
                         .permitAll()
+                        .requestMatchers(
+                                "/api/v1/auth/login",      // 프리플라이트/로그인 시작 허용
+                                "/api/v1/auth/**",
+                                "/api/token"
+                        ).permitAll()
                         .anyRequest()
                         .authenticated())
                 .sessionManagement(session ->
@@ -134,4 +146,19 @@ public class SecurityConfig {
         return (web) -> web.ignoring().requestMatchers("/static/js/**", "/static/images/**", "/static/css/**","/static/scss/**");
     }
 
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration config = new CorsConfiguration();
+        // 개발용: 프론트 주소
+        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        // 배포시: config.setAllowedOrigins(List.of("https://app.example.com"));
+        config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
+        config.setAllowedHeaders(List.of("*"));
+        config.setAllowCredentials(true);
+        config.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", config);
+        return source;
+    }
 }
