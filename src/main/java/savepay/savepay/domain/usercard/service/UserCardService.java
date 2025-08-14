@@ -37,6 +37,12 @@ public class UserCardService {
         Card card = cardRepository.findById(cardId).orElseThrow(
                 () -> new GeneralException(ErrorStatus.CARD_NOT_FOUND));
 
+        userPaymentRepository.findByUserAndPayment(user, card).ifPresent(userPayment ->
+                {
+                    throw new GeneralException(ErrorStatus.DUPLICATE_CARD_REGISTER);
+                }
+        );
+
         UserPayment userPayment = UserPayment.createUserPayment(user, card, false);
 
         userPaymentRepository.save(userPayment);
