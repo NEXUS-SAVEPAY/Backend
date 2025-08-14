@@ -27,4 +27,8 @@ public class RefreshToken extends BaseEntity {
     public static RefreshToken createRefreshToken(User user, String refreshToken) {
         return new RefreshToken(user, refreshToken);
     }
+
+    public void updateToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
 }

@@ -18,7 +18,6 @@ public class User extends BaseEntity {
 
     private String username;
 
-    @NaturalId
     private String email;
 
     @Enumerated(EnumType.STRING)
