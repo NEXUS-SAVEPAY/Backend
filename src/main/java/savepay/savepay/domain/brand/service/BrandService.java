@@ -23,15 +23,11 @@ public class BrandService {
     private final BrandRepository brandRepository;
     private final AwsS3Service awsS3Service;
 
-    public List<BrandResponseDto.BrandInfoDto> searchBrand(BrandRequestDto.BrandNameRequestDto request) {
-        List<Brand> brands = brandRepository.searchBrands(request.getName());
-        if (brands.isEmpty()) {
-            throw new GeneralException(ErrorStatus.BRAND_NOT_FOUND);
-        }
+    public BrandResponseDto.BrandInfoDto searchBrand(BrandRequestDto.BrandNameRequestDto request) {
+        Brand brand = brandRepository.findByName(request.getName())
+                .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
 
-        return brands.stream()
-                .map(BrandConverter::toBrandInfoDto)
-                .toList();
+        return BrandConverter.toBrandInfoDto(brand);
     }
 
     public void createBrand(MultipartFile img, BrandRequestDto.BrandInfoRequestDto request) {

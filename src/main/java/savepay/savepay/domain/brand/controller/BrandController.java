@@ -22,7 +22,7 @@ public class BrandController {
 
     @PostMapping("/search")
     @Operation(summary = "브랜드 검색 API", description = "사용자가 브랜드 검색할 때 조회하는 메서드")
-    public ApiResponse<List<BrandResponseDto.BrandInfoDto>> searchBrand(@RequestBody BrandRequestDto.BrandNameRequestDto request) {
+    public ApiResponse<BrandResponseDto.BrandInfoDto> searchBrand(@RequestBody BrandRequestDto.BrandNameRequestDto request) {
         return ApiResponse.onSuccess(brandService.searchBrand(request));
     }
 
