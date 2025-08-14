@@ -7,6 +7,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.NaturalId;
 import savepay.savepay.domain.common.BaseEntity;
 
 @Entity
@@ -17,6 +18,7 @@ public class User extends BaseEntity {
 
     private String username;
 
+    @NaturalId
     private String email;
 
     @Enumerated(EnumType.STRING)
