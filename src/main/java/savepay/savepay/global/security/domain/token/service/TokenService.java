@@ -18,7 +18,7 @@ import savepay.savepay.global.security.service.CustomUserDetailsService;
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class TokenService {
 
@@ -78,6 +78,7 @@ public class TokenService {
         return jwtTokenProvider.generateAccessToken(jwtTokenProvider.getUsernameFromToken(refreshToken));
     }
 
+    @Transactional
     public String generateRefreshToken(String email) {
         String refreshToken = jwtTokenProvider.generateRefreshToken(email);
         User user = userRepository.findByEmail(email).orElseThrow(() ->
