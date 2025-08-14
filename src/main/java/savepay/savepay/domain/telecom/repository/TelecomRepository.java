@@ -1,4 +1,4 @@
-package savepay.savepay.domain.telecom.Telecom;
+package savepay.savepay.domain.telecom.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import savepay.savepay.domain.telecom.entity.Telecom;
