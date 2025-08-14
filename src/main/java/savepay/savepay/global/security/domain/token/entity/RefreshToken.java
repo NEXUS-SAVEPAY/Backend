@@ -14,7 +14,7 @@ import savepay.savepay.domain.user.entity.User;
 @Entity
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RefreshToken extends BaseEntity {
 
     @OneToOne

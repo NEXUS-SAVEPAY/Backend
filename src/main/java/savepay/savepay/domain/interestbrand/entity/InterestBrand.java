@@ -8,7 +8,7 @@ import savepay.savepay.domain.user.entity.User;
 
 @Entity
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class InterestBrand extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)

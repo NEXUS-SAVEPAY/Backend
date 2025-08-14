@@ -11,9 +11,8 @@ import savepay.savepay.domain.user.entity.User;
 
 @Entity
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class UserPayment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
