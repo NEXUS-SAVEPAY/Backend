@@ -106,7 +106,7 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/api/v1/auth/login",      // 프리플라이트/로그인 시작 허용
                                 "/api/v1/auth/**",
-                                "/api/token"
+                                "/api/auth/**"// 필요시 범위 확장
                         ).permitAll()
                         .anyRequest()
                         .authenticated())
