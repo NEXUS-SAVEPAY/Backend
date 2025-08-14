@@ -1,4 +1,4 @@
-package savepay.savepay.global.security.domain.service;
+package savepay.savepay.global.security.domain.token.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;

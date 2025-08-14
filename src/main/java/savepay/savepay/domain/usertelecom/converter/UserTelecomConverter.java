@@ -14,16 +14,14 @@ public class UserTelecomConverter {
     public static UserTelecomResponseDTO toDTO(UserTelecom userTelecom) {
         return UserTelecomResponseDTO.builder()
                 .userId(userTelecom.getUser().getId())
-                .telecomName(userTelecom.getTelecom().getTelecomName().name())
-                .grade(userTelecom.getGrade().name())
+                .telecomName(userTelecom.getTelecom().getTelecomName())
+                .grade(userTelecom.getGrade())
                 .isMemberShip(userTelecom.getIsMemberShip())
                 .build();
     }
 
     public static UserTelecom toEntity(User user, Telecom telecom, UserTelecomRequestDTO requestDTO) {
-        TelecomName telecomName = TelecomConverter.nameToEnum(requestDTO.telecomName());
-
-        return UserTelecom.createUserTelecom(user, telecom, TelecomGrade.valueOf(requestDTO.grade()),
+        return UserTelecom.createUserTelecom(user, telecom, requestDTO.grade(),
                 requestDTO.isMemberShip());
     }
 }

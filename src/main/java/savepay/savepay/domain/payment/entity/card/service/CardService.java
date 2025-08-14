@@ -11,6 +11,9 @@ import savepay.savepay.domain.payment.entity.card.repository.CardRepository;
 import savepay.savepay.global.code.status.ErrorStatus;
 import savepay.savepay.global.exception.GeneralException;
 
+/**
+ * 카드 자체적인 기능만 담당합니다.
+ */
 
 @Service
 @Transactional(readOnly = true)
@@ -27,6 +30,7 @@ public class CardService {
         return CardConverter.toDto(card);
     }
 
+    @Transactional
     public CardResponseDto registerCard(CardRequestDto.CardRegisterDto cardRegisterDto) {
         Card card = CardConverter.toEntity(cardRegisterDto);
         cardRepository.save(card);
@@ -34,6 +38,7 @@ public class CardService {
         return CardConverter.toDto(card);
     }
 
+    @Transactional
     public void deleteCard(Long cardId) {
         Card card = cardRepository.findById(cardId).orElseThrow(
                 () -> new GeneralException(ErrorStatus.CARD_NOT_FOUND));

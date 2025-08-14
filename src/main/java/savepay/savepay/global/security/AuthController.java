@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import savepay.savepay.global.ApiResponse;
-import savepay.savepay.global.security.domain.service.TokenService;
+import savepay.savepay.global.security.domain.token.service.TokenService;
 
 @RestController
 @RequestMapping("/api/auth")

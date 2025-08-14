@@ -11,9 +11,8 @@ import savepay.savepay.domain.user.entity.User;
 
 @Entity
 @Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder
 public class UserPayment extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
@@ -24,7 +23,6 @@ public class UserPayment extends BaseEntity {
     @JoinColumn(name = "payment_id")
     private Payment payment;
 
-    // 멤버쉽을 payment별로 생성해서 중복 레코드 생성보다 이 구조가 나을 것 같습니다.
     private Boolean isMembership;
 
     public static UserPayment createUserPayment(User user, Payment payment, Boolean isMembership) {

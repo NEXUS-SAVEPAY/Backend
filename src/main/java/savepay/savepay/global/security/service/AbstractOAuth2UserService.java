@@ -9,9 +9,9 @@ import org.springframework.stereotype.Service;
 import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.domain.user.repository.UserRepository;
 import savepay.savepay.domain.user.service.UserService;
-import savepay.savepay.global.security.domain.KakaoUser;
-import savepay.savepay.global.security.domain.NaverUser;
-import savepay.savepay.global.security.domain.ProviderUser;
+import savepay.savepay.global.security.domain.oauth2user.entity.KakaoUser;
+import savepay.savepay.global.security.domain.oauth2user.entity.NaverUser;
+import savepay.savepay.global.security.domain.oauth2user.entity.ProviderUser;
 
 import java.util.Optional;
 

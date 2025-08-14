@@ -1,4 +1,4 @@
-package savepay.savepay.global.security.domain;
+package savepay.savepay.global.security.domain.token.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,7 @@ import savepay.savepay.domain.user.entity.User;
 @Entity
 @Getter
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class RefreshToken extends BaseEntity {
 
     @OneToOne

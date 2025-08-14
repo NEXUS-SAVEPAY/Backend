@@ -3,10 +3,8 @@ package savepay.savepay.domain.usertelecom.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import savepay.savepay.domain.telecom.Telecom.TelecomRepository;
-import savepay.savepay.domain.telecom.converter.TelecomConverter;
+import savepay.savepay.domain.telecom.repository.TelecomRepository;
 import savepay.savepay.domain.telecom.entity.Telecom;
-import savepay.savepay.domain.telecom.entity.TelecomName;
 import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.domain.usertelecom.converter.UserTelecomConverter;
 import savepay.savepay.domain.usertelecom.dto.UserTelecomRequestDTO;
@@ -28,9 +26,7 @@ public class UserTelecomService {
 
     @Transactional
     public UserTelecomResponseDTO connectTelecom(UserTelecomRequestDTO requestDTO, User user) {
-        TelecomName telecomName = TelecomConverter.nameToEnum(requestDTO.telecomName());
-
-        Telecom telecom = telecomRepository.findByTelecomName(telecomName);
+        Telecom telecom = telecomRepository.findByTelecomName(requestDTO.telecomName());
 
         UserTelecom userTelecom = UserTelecomConverter.toEntity(user, telecom, requestDTO);
 

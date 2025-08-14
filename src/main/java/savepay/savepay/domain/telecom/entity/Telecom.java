@@ -3,15 +3,13 @@ package savepay.savepay.domain.telecom.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import savepay.savepay.domain.common.BaseEntity;
 
 @Entity
 @Getter
-@AllArgsConstructor
-@NoArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Telecom extends BaseEntity {
 
     @Enumerated(EnumType.STRING)

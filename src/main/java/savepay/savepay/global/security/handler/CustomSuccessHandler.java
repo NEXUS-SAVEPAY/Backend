@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-import savepay.savepay.global.security.domain.ProviderUser;
-import savepay.savepay.global.security.domain.service.TokenResponseWriter;
-import savepay.savepay.global.security.domain.service.TokenService;
+import savepay.savepay.global.security.domain.oauth2user.entity.ProviderUser;
+import savepay.savepay.global.security.domain.token.service.TokenResponseWriter;
+import savepay.savepay.global.security.domain.token.service.TokenService;
 
 import java.io.IOException;
 
