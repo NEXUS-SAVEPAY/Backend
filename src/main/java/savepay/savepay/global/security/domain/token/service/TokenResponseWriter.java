@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import savepay.savepay.global.ApiResponse;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
 @Component
@@ -24,12 +26,13 @@ public class TokenResponseWriter {
 //    }
 
     public void write(HttpServletResponse response, String access, String refresh) throws IOException, IOException {
-        response.setStatus(HttpServletResponse.SC_OK);
+        response.setStatus(HttpServletResponse.SC_FOUND);
+        String redirectUrl = String.format(
+                "http://localhost:5173/auth/callback?accessToken=%s&refreshToken=%s",
+                URLEncoder.encode(access, StandardCharsets.UTF_8),
+                URLEncoder.encode(refresh, StandardCharsets.UTF_8));
 
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
-
-        response.sendRedirect("/api/auth/done?accessToken=" + access + "&refreshToken=" + refresh);
+        response.setHeader("Location", redirectUrl);
     }
 
     public void writeAccessOnly(HttpServletResponse response, String access) throws IOException {
