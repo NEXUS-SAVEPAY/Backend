@@ -84,10 +84,16 @@ public class TokenService {
         User user = userRepository.findByEmail(email).orElseThrow(() ->
                 new GeneralException(ErrorStatus.USER_NOT_FOUND));
 
-        refreshTokenRepository.findByUser(user).ifPresent(refreshTokenRepository::delete);
-
-        RefreshToken refreshTokenObject = RefreshToken.createRefreshToken(user, refreshToken);
-        refreshTokenRepository.save(refreshTokenObject);
+        Optional<RefreshToken> refreshTokenOptional = refreshTokenRepository.findByUser(user);
+        if (refreshTokenOptional.isPresent()) {
+            RefreshToken refreshTokenObject = refreshTokenOptional.get();
+            refreshTokenObject.updateToken(refreshToken);
+            refreshTokenRepository.save(refreshTokenObject);
+        }
+        else {
+            RefreshToken refreshTokenObject = RefreshToken.createRefreshToken(user, refreshToken);
+            refreshTokenRepository.save(refreshTokenObject);
+        }
 
         return refreshToken;
     }
