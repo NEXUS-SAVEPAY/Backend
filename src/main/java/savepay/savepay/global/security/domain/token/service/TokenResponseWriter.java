@@ -15,12 +15,21 @@ public class TokenResponseWriter {
 
     private final ObjectMapper objectMapper;
 
+//    public void write(HttpServletResponse response, String access, String refresh) throws IOException, IOException {
+//        response.setStatus(HttpServletResponse.SC_OK);
+//        response.setContentType("application/json");
+//        response.setCharacterEncoding("UTF-8");
+//        var body = Map.of("accessToken", access, "refreshToken", refresh);
+//        response.getWriter().write(objectMapper.writeValueAsString(ApiResponse.onSuccess(body)));
+//    }
+
     public void write(HttpServletResponse response, String access, String refresh) throws IOException, IOException {
         response.setStatus(HttpServletResponse.SC_OK);
+
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        var body = Map.of("accessToken", access, "refreshToken", refresh);
-        response.getWriter().write(objectMapper.writeValueAsString(ApiResponse.onSuccess(body)));
+
+        response.sendRedirect("/api/auth/done?accessToken" + access + "&refreshToken" + refresh);
     }
 
     public void writeAccessOnly(HttpServletResponse response, String access) throws IOException {
