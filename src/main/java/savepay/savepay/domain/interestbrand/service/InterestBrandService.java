@@ -30,9 +30,7 @@ public class InterestBrandService {
     private final BrandRepository brandRepository;
 
     @Transactional
-    public void createInterestBrand(String email, InterestBrandRequestDto.toBrandIdDto request) {
-        User user = getUser(email);
-
+    public void createInterestBrand(User user, InterestBrandRequestDto.toBrandIdDto request) {
         Brand brand = brandRepository.findById(request.getBrandId())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
 
@@ -50,18 +48,16 @@ public class InterestBrandService {
     }
 
     @Transactional
-    public void deleteInterestBrand(String email, InterestBrandRequestDto.toInterestBrandIdDto request) {
+    public void deleteInterestBrand(User user, InterestBrandRequestDto.toInterestBrandIdDto request) {
         InterestBrand interestBrand = interestBrandRepository.findById(request.getInterestBrandId())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.INTERESTED_BRAND_NOT_FOUND));
 
-        validateUserAccess(email, interestBrand);
+        validateUserAccess(user.getEmail(), interestBrand);
         interestBrandRepository.delete(interestBrand);
     }
 
     @Transactional(readOnly = true)
-    public List<InterestBrandResponseDto.InterestBrandInfo> getInterestBrands(String email) {
-        User user = getUser(email);
-
+    public List<InterestBrandResponseDto.InterestBrandInfo> getInterestBrands(User user) {
         return interestBrandRepository.findByUser(user)
                 .stream()
                 .filter(interestBrand -> interestBrand.getCategory().equals(InterestBrandCategory.INTEREST))
@@ -70,9 +66,7 @@ public class InterestBrandService {
     }
 
     @Transactional
-    public void createSearchBrands(String email, InterestBrandRequestDto.toBrandIdDto request) {
-        User user = getUser(email);
-
+    public void createSearchBrands(User user, InterestBrandRequestDto.toBrandIdDto request) {
         Brand brand = brandRepository.findById(request.getBrandId())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
 
@@ -90,10 +84,9 @@ public class InterestBrandService {
     }
 
     @Transactional(readOnly = true)
-    public List<InterestBrandResponseDto.InterestBrandInfo> getSearchBrands(String email) {
-        User user = getUser(email);
-
+    public List<InterestBrandResponseDto.InterestBrandInfo> getSearchBrands(User user) {
         PageRequest pageRequest = PageRequest.of(0, 10, Sort.by(Sort.Direction.DESC, "id"));
+
         List<InterestBrand> searchBrands = interestBrandRepository
                 .findRecentByUserAndCategory(user, InterestBrandCategory.SEARCH, pageRequest);
 
@@ -101,11 +94,6 @@ public class InterestBrandService {
                 .stream()
                 .map(InterestBrandConverter::toInterestBrandInfoDto)
                 .collect(Collectors.toList());
-    }
-
-    private User getUser(String email) {
-        return userRepository.findByEmail(email)
-                .orElseThrow(() -> new GeneralException(ErrorStatus.USER_NOT_FOUND));
     }
 
     private void validateUserAccess(String email, InterestBrand interestBrand) {

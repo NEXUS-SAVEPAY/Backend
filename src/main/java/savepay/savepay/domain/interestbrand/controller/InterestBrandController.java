@@ -25,7 +25,7 @@ public class InterestBrandController {
     @Operation(summary = "유저의 관심 브랜드 등록 API", description = "유저의 관심 브랜드 등록하는 메서드")
     public ApiResponse<String> createInterestBrand(@UserInjection User user,
                                                    @RequestBody InterestBrandRequestDto.toBrandIdDto request) {
-        interestBrandService.createInterestBrand(user.getEmail(), request);
+        interestBrandService.createInterestBrand(user, request);
         return ApiResponse.onSuccess("Successfully created interest brand");
     }
 
@@ -33,27 +33,27 @@ public class InterestBrandController {
     @Operation(summary = "유저의 관심 브랜드 삭제 API", description = "유저의 관심 브랜드 삭제하는 메서드")
     public ApiResponse<String> deleteInterestBrand(@UserInjection User user,
                                                    @RequestBody InterestBrandRequestDto.toInterestBrandIdDto request) {
-        interestBrandService.deleteInterestBrand(user.getEmail(), request);
+        interestBrandService.deleteInterestBrand(user, request);
         return ApiResponse.onSuccess("Successfully deleted interest brand");
     }
 
     @GetMapping("/")
     @Operation(summary = "유저의 관심 브랜드 리스트 반환 API", description = "유저의 관심 브랜드 리스트를 반환하는 메서드")
     public ApiResponse<List<InterestBrandResponseDto.InterestBrandInfo>> getInterestBrands(@UserInjection User user) {
-        return ApiResponse.onSuccess(interestBrandService.getInterestBrands(user.getEmail()));
+        return ApiResponse.onSuccess(interestBrandService.getInterestBrands(user));
     }
 
     @PostMapping("/search")
     @Operation(summary = "유저의 검색한 브랜드 저장 API", description = "유저가 검색한 브랜드를 저장하는 메서드")
     public ApiResponse<String> createSearchBrands(@UserInjection User user,
                                                   @RequestBody InterestBrandRequestDto.toBrandIdDto request) {
-        interestBrandService.createSearchBrands(user.getEmail(), request);
+        interestBrandService.createSearchBrands(user, request);
         return ApiResponse.onSuccess("Successfully created search brand");
     }
 
     @GetMapping("/search")
     @Operation(summary = "유저의 브랜드 검색어 리스트 API", description = "유저가 검색한 최근 브랜드 리스트 내역 10개 반환하는 메서드")
     public ApiResponse<List<InterestBrandResponseDto.InterestBrandInfo>> getSearchBrands(@UserInjection User user) {
-        return ApiResponse.onSuccess(interestBrandService.getSearchBrands(user.getEmail()));
+        return ApiResponse.onSuccess(interestBrandService.getSearchBrands(user));
     }
 }
