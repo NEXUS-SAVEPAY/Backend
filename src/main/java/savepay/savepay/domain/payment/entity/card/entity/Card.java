@@ -1,6 +1,6 @@
 package savepay.savepay.domain.payment.entity.card.entity;
 
-import jakarta.persistence.Column;
+import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -11,9 +11,9 @@ import savepay.savepay.domain.payment.entity.Payment;
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
+@DiscriminatorValue("C")
 public class Card extends Payment {
 
-    @Column(nullable = false)
     private String cardName;
 
     protected Card(String image, String company, String cardName) {

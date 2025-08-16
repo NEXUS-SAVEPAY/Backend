@@ -15,7 +15,7 @@ import savepay.savepay.domain.common.BaseEntity;
     단일 테이블 전략
  */
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
 @Getter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)

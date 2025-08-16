@@ -1,4 +1,4 @@
-package savepay.savepay.global.security.domain.service;
+package savepay.savepay.global.security.domain.token.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -11,14 +11,14 @@ import savepay.savepay.domain.user.repository.UserRepository;
 import savepay.savepay.global.code.status.ErrorStatus;
 import savepay.savepay.global.exception.GeneralException;
 import savepay.savepay.global.security.JwtTokenProvider;
-import savepay.savepay.global.security.domain.RefreshToken;
-import savepay.savepay.global.security.domain.repository.RefreshTokenRepository;
+import savepay.savepay.global.security.domain.token.entity.RefreshToken;
+import savepay.savepay.global.security.domain.token.repository.RefreshTokenRepository;
 import savepay.savepay.global.security.service.CustomUserDetailsService;
 
 import java.util.Optional;
 
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
 public class TokenService {
 
@@ -78,15 +78,22 @@ public class TokenService {
         return jwtTokenProvider.generateAccessToken(jwtTokenProvider.getUsernameFromToken(refreshToken));
     }
 
+    @Transactional
     public String generateRefreshToken(String email) {
         String refreshToken = jwtTokenProvider.generateRefreshToken(email);
         User user = userRepository.findByEmail(email).orElseThrow(() ->
                 new GeneralException(ErrorStatus.USER_NOT_FOUND));
 
-        refreshTokenRepository.findByUser(user).ifPresent(refreshTokenRepository::delete);
-
-        RefreshToken refreshTokenObject = RefreshToken.createRefreshToken(user, refreshToken);
-        refreshTokenRepository.save(refreshTokenObject);
+        Optional<RefreshToken> refreshTokenOptional = refreshTokenRepository.findByUser(user);
+        if (refreshTokenOptional.isPresent()) {
+            RefreshToken refreshTokenObject = refreshTokenOptional.get();
+            refreshTokenObject.updateToken(refreshToken);
+            refreshTokenRepository.save(refreshTokenObject);
+        }
+        else {
+            RefreshToken refreshTokenObject = RefreshToken.createRefreshToken(user, refreshToken);
+            refreshTokenRepository.save(refreshTokenObject);
+        }
 
         return refreshToken;
     }

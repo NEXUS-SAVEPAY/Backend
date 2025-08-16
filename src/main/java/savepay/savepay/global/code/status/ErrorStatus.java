@@ -28,7 +28,8 @@ public enum ErrorStatus implements BaseErrorCode {
     S3_EMPTY_FILE(HttpStatus.BAD_REQUEST, "S34003", "업로드할 파일이 없습니다."),
     USER_CARD_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_CARD404", "등록된 카드가 없습니다."),
     USER_PAY_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_PAY404", "등록된 페이가 없습니다."),
-    DISCOUNT_NOT_FOUND(HttpStatus.NOT_FOUND, "DISCOUNT404", "등록된 혜택이 없습니다.");
+    DISCOUNT_NOT_FOUND(HttpStatus.NOT_FOUND, "DISCOUNT404", "등록된 혜택이 없습니다."),
+    DUPLICATE_CARD_REGISTER(HttpStatus.BAD_REQUEST, "CARD400", "중복된 카드 등록입니다.");
 
     private final HttpStatus httpStatus;
     private final String code;

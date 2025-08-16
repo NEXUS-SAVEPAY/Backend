@@ -39,7 +39,7 @@ public class UserPayService {
 
     @Transactional
     public void modifyUserCard(PayRequestDto.PayRequestListDto payRequestListDto, User user) {
-        userPaymentRepository.deleteAll(userPaymentRepository.findUserPayList(user));
+        userPaymentRepository.deleteAll(userPaymentRepository.findUserPayList(user)); // 기존 모든 UserPay 삭제 후 재등록합니다.
 
         payRequestListDto.payRequestOneDtoList()
                 .forEach(payRequestOneDto -> {

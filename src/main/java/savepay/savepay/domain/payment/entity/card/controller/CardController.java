@@ -8,6 +8,7 @@ import savepay.savepay.domain.payment.entity.card.service.CardService;
 import savepay.savepay.domain.usercard.service.UserCardService;
 import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.global.ApiResponse;
+import savepay.savepay.global.security.resolver.UserInjection;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class CardController {
     }
 
     @GetMapping("/list")
-    public ApiResponse<List<CardResponseDto>> findCardList(User user) {
+    public ApiResponse<List<CardResponseDto>> findCardList(@UserInjection User user) {
         return ApiResponse.onSuccess(userCardService.findUserCardList(user));
     }
 
@@ -43,13 +44,13 @@ public class CardController {
     }
 
     @PostMapping("/user")
-    public ApiResponse<String> postCard(@RequestParam(name = "cardId")Long cardId, User user) {
+    public ApiResponse<String> postCard(@RequestParam(name = "cardId")Long cardId, @UserInjection User user) {
         userCardService.registerUserCard(cardId, user);
         return ApiResponse.onSuccess("User's card is successfully registered");
     }
 
     @DeleteMapping("/user")
-    public ApiResponse<String> deleteCard(@RequestParam(name = "cardId")Long cardId, User user) {
+    public ApiResponse<String> deleteCard(@RequestParam(name = "cardId")Long cardId, @UserInjection User user) {
         userCardService.deleteUserCard(cardId, user);
         return ApiResponse.onSuccess("User's card is successfully deleted");
     }

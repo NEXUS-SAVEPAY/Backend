@@ -8,7 +8,7 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import savepay.savepay.domain.user.entity.User;
-import savepay.savepay.global.security.domain.CustomUserDetails;
+import savepay.savepay.global.security.domain.oauth2user.entity.CustomUserDetails;
 
 public class UserInjectionArgumentResolver implements HandlerMethodArgumentResolver {
 

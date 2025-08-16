@@ -15,10 +15,9 @@ import java.time.LocalDateTime;
 @EntityListeners(AuditingEntityListener.class)
 @MappedSuperclass // 공통 매핑 정보 지정
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
 @SuperBuilder
 @Getter
-@Setter
 public abstract class BaseEntity {
 
     @Id

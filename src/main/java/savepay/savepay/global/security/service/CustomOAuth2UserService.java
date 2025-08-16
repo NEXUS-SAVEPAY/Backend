@@ -7,7 +7,7 @@ import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.oauth2.core.OAuth2AuthenticationException;
 import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
-import savepay.savepay.global.security.domain.ProviderUser;
+import savepay.savepay.global.security.domain.oauth2user.entity.ProviderUser;
 
 @Service
 public class CustomOAuth2UserService extends AbstractOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
