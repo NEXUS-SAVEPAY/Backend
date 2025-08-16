@@ -14,7 +14,7 @@ import savepay.savepay.domain.interestbrand.repository.InterestBrandRepository;
 import savepay.savepay.domain.payment.entity.Payment;
 import savepay.savepay.domain.payment.entity.card.repository.CardRepository;
 import savepay.savepay.domain.payment.entity.pay.repository.PayRepository;
-import savepay.savepay.domain.telecom.Telecom.TelecomRepository;
+import savepay.savepay.domain.telecom.repository.TelecomRepository;
 import savepay.savepay.domain.telecom.entity.Telecom;
 import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.domain.userpayment.entity.UserPayment;
