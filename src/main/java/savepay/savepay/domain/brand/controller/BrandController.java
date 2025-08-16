@@ -26,10 +26,10 @@ public class BrandController {
         return ApiResponse.onSuccess(brandService.searchBrand(request));
     }
 
-    @GetMapping("/")
+    @PostMapping(consumes = "multipart/form-data")
     @Operation(summary = "브랜드 생성 API", description = "브랜드를 생성하는 메서드")
     public ApiResponse<String> createBrand(@RequestPart(name = "ImageFile", required = false) MultipartFile img,
-                                           @RequestBody BrandRequestDto.BrandInfoRequestDto request) {
+                                           @RequestPart BrandRequestDto.BrandInfoRequestDto request) {
         brandService.createBrand(img, request);
         return ApiResponse.onSuccess("Successfully created brand");
     }
