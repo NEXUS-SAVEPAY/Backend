@@ -3,13 +3,13 @@ package savepay.savepay.domain.discount.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import savepay.savepay.domain.discount.dto.DiscountRequestDto;
 import savepay.savepay.domain.discount.dto.DiscountResponseDto;
 import savepay.savepay.domain.discount.service.DiscountService;
+import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.global.ApiResponse;
+import savepay.savepay.global.security.resolver.UserInjection;
 
 import java.util.List;
 
@@ -21,28 +21,58 @@ public class DiscountController {
 
     private final DiscountService discountService;
 
-    //카드 혜택
-
-
-    //간편 결제 혜택
-
-    //유저의 브랜드 검색에 따른 해당 브랜드와 관련된 통신사 혜택
-    @GetMapping("/telecom")
-    @Operation(summary = "유저 통신사와 관련된 검색 브랜드 혜택 반환 API", description = "유저의 관심 브랜드 리스트를 반환하는 메서드")
-    public ApiResponse<List<DiscountResponseDto.DiscountInfo>> getTelecomDiscount(Authentication authentication) {
-        String email = authentication.getName();
-        return ApiResponse.onSuccess(discountService.getTelecomDiscount(email));
+    @PostMapping("/")
+    public ApiResponse<String> createDiscount(@RequestBody DiscountRequestDto.toDiscountInfo request) {
+        discountService.createDiscount(request);
+        return ApiResponse.onSuccess("Successfully created discount");
     }
 
-    //추천 혜택 api
+    @PostMapping("/discounts")
+    @Operation(summary = "유저 등록수단별 혜택 반환 API", description = "카드/페이/통신사별 혜택 리스트를 모두 반환하는 메서드")
+    public ApiResponse<List<DiscountResponseDto.DiscountInfo>> getAllDiscounts(@UserInjection User user,
+                                                                               @RequestBody DiscountRequestDto.toBrandNameDto request) {
+        return ApiResponse.onSuccess(discountService.getAllDiscounts(user, request));
+    }
 
-    // 관심브랜드 관련 혜택 api
+    @GetMapping("/interest")
+    @Operation(summary = "유저 관심사와 관련된 혜택 반환 API", description = "유저 관심사와 관련된 혜택 리스트 반환하는 메서드")
+    public ApiResponse<List<DiscountResponseDto.DiscountInfo>> getInterestBrandDiscount(@UserInjection User user) {
+        return ApiResponse.onSuccess(discountService.getInterestBrandDiscount(user));
+    }
 
+    @GetMapping("/payment")
+    @Operation(summary = "사용자의 각 등록수단에 관해 top2씩 브랜드 혜택 반환 API", description = "사용자의 등록수단에 관해 top2씩 브랜드 혜택 반환하는 메서드")
+    public ApiResponse<List<DiscountResponseDto.DiscountInfo>> getUserTopDiscounts(@UserInjection User user) {
+        return ApiResponse.onSuccess(discountService.getUserTopDiscounts(user));
+    }
 
-    //검색 브랜드에 관해 사용자의 등록수단과 관련된 혜택 api(각각 top2씩 반환해야함 )
-    //사용자가 등록한 결제수단(카드, 간편결제, 통신사)별 주요 혜택을 빠르게 확인
+    @GetMapping("/interest-or-payment")
+    @Operation(summary = "사용자의 관심브랜드 또는 등록수단 혜택 반환 API", description = "사용자의 관심브랜드 또는 등록수단 혜택 반환하는 메서드")
+    public ApiResponse<List<DiscountResponseDto.DiscountInfo>> getInterestOrPayment(@UserInjection User user) {
+        return ApiResponse.onSuccess(discountService.getInterestOrPayment(user));
+    }
 
-    // 사용자의 관심브랜드가 없으면 등록수단 혜택 반환 api
+    @GetMapping("/card")
+    @Operation(summary = "사용자의 등록된 카드와 관련된 브랜드 혜택 반환 API", description = "사용자의 카드와 관련된 브랜드 혜택하는 메서드")
+    public ApiResponse<List<DiscountResponseDto.DiscountInfo>> getCardDiscounts(@UserInjection User user) {
+        return ApiResponse.onSuccess(discountService.getCardDiscounts(user));
+    }
 
+    @GetMapping("/pay")
+    @Operation(summary = "사용자의 등록된 페이와 관련된 브랜드 혜택 반환 API", description = "사용자의 페이와 관련된 브랜드 혜택하는 메서드")
+    public ApiResponse<List<DiscountResponseDto.DiscountInfo>> getPayDiscounts(@UserInjection User user) {
+        return ApiResponse.onSuccess(discountService.getPayDiscounts(user));
+    }
 
+    @GetMapping("/telecom")
+    @Operation(summary = "사용자의 등록된 통신사와 관련된 브랜드 혜택 반환 API", description = "사용자의 통신사와 관련된 브랜드 혜택하는 메서드")
+    public ApiResponse<List<DiscountResponseDto.DiscountInfo>> getTelecomDiscounts(@UserInjection User user) {
+        return ApiResponse.onSuccess(discountService.getTelecomDiscounts(user));
+    }
+
+    @GetMapping("/{discountId}")
+    @Operation(summary = "혜택 상세보기 API", description = "특정 혜택의 상세 정보를 반환하는 메서드")
+    public ApiResponse<DiscountResponseDto.DiscountInfo> getDiscountInfo(@PathVariable Long discountId) {
+        return ApiResponse.onSuccess(discountService.getDiscountInfo(discountId));
+    }
 }
