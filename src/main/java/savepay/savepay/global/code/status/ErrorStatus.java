@@ -23,9 +23,12 @@ public enum ErrorStatus implements BaseErrorCode {
     INVALID_TOKEN(HttpStatus.BAD_REQUEST, "COMMON400", "잘못된 토큰입니다."),
     INTERESTED_BRAND_NOT_FOUND(HttpStatus.NOT_FOUND, "INTEREST404", "관심 브랜드를 찾을 수 없습니다."),
     DUPLICATE_INTEREST_BRAND(HttpStatus.CONFLICT, "BRAND409", "이미 관심 브랜드로 등록된 브랜드입니다."),
-    S3_FAILED(HttpStatus.INTERNAL_SERVER_ERROR,"S34001","사진 업로드에 실패했습니다."),
-    S3_FORMAT(HttpStatus.BAD_REQUEST, "S34002","잘못된 형식의 파일입니다."),
-    S3_EMPTY_FILE(HttpStatus.BAD_REQUEST, "S34003", "업로드할 파일이 없습니다.");
+    S3_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "S34001", "사진 업로드에 실패했습니다."),
+    S3_FORMAT(HttpStatus.BAD_REQUEST, "S34002", "잘못된 형식의 파일입니다."),
+    S3_EMPTY_FILE(HttpStatus.BAD_REQUEST, "S34003", "업로드할 파일이 없습니다."),
+    USER_CARD_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_CARD404", "등록된 카드가 없습니다."),
+    USER_PAY_NOT_FOUND(HttpStatus.NOT_FOUND, "USER_PAY404", "등록된 페이가 없습니다."),
+    DISCOUNT_NOT_FOUND(HttpStatus.NOT_FOUND, "DISCOUNT404", "등록된 혜택이 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
