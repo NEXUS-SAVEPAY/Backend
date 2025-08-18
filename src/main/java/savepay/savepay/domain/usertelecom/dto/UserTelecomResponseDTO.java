@@ -9,6 +9,6 @@ public record UserTelecomResponseDTO(
         Long userId,
         TelecomName telecomName,
         TelecomGrade grade,
-        boolean isMemberShip
+        boolean isMembership
 ) {
 }

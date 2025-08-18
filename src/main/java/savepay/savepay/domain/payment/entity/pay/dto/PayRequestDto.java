@@ -12,7 +12,7 @@ public class PayRequestDto {
 
     public record PayRequestOneDto(
             PaymentType payProvider,
-            Boolean isMemberShip
+            Boolean isMembership
     ) {}
 
     public record PayRegistryDto(
