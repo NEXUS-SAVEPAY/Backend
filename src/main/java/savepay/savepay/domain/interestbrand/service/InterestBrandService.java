@@ -26,12 +26,11 @@ import java.util.stream.Collectors;
 public class InterestBrandService {
 
     private final InterestBrandRepository interestBrandRepository;
-    private final UserRepository userRepository;
     private final BrandRepository brandRepository;
 
     @Transactional
     public void createInterestBrand(User user, InterestBrandRequestDto.toBrandIdDto request) {
-        Brand brand = brandRepository.findById(request.getBrandId())
+        Brand brand = brandRepository.findByName(request.getBrandName())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
 
         if (interestBrandRepository.isBrandAlreadyMarkedByUser(user, brand, InterestBrandCategory.INTEREST)) {
@@ -67,7 +66,7 @@ public class InterestBrandService {
 
     @Transactional
     public void createSearchBrands(User user, InterestBrandRequestDto.toBrandIdDto request) {
-        Brand brand = brandRepository.findById(request.getBrandId())
+        Brand brand = brandRepository.findByName(request.getBrandName())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.BRAND_NOT_FOUND));
 
         if (interestBrandRepository.isBrandAlreadyMarkedByUser(user, brand, InterestBrandCategory.SEARCH)) {
