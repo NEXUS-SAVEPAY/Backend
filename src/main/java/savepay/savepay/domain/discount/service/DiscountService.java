@@ -37,6 +37,7 @@ public class DiscountService {
                 .condition(request.getCondition())
                 .details(request.getDetails())
                 .pointInfo(request.getPointInfo())
+                .infoLink(request.getInfoLink())
                 .period(request.getDiscountDate())
                 .payment(request.getPaymentId() != null ? findPaymentById(request.getPaymentId()) : null)
                 .type(request.getDiscountType())
