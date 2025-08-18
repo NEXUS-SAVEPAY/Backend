@@ -18,6 +18,7 @@ public class SwaggerConfig {
     public OpenAPI openAPI() {
         return new OpenAPI()
                 .addServersItem(new Server().url("https://savepay.site"))
+                .addServersItem(new Server().url("https://www.savepay.site"))
                 .components(new Components()
                         .addSecuritySchemes(BEARER_KEY,
                                 new SecurityScheme()
