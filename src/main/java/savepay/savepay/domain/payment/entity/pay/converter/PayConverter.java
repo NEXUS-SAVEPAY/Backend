@@ -1,5 +1,6 @@
 package savepay.savepay.domain.payment.entity.pay.converter;
 
+import savepay.savepay.domain.payment.entity.pay.dto.PayRequestDto;
 import savepay.savepay.domain.payment.entity.pay.dto.PayResponseDto;
 import savepay.savepay.domain.payment.entity.pay.entity.Pay;
 import savepay.savepay.domain.userpayment.entity.UserPayment;
@@ -18,5 +19,13 @@ public class PayConverter {
     public static PayResponseDto.PayResponseOneDto toDto(Pay pay, Boolean isMembership) {
         return new PayResponseDto.PayResponseOneDto(pay.getPaymentType().toString(),
                 isMembership);
+    }
+
+    public static Pay toEntity(PayRequestDto.PayRegistryDto dto, String image) {
+        return Pay.createPay(image, dto.company(), dto.payProvider());
+    }
+
+    public static PayResponseDto.PayRegistryResponseDto toRegistryDto(Pay pay) {
+        return new PayResponseDto.PayRegistryResponseDto(pay.getId(), pay.getImage(), pay.getCompany(), pay.getPaymentType());
     }
 }

@@ -1,5 +1,7 @@
 package savepay.savepay.domain.payment.entity.pay.dto;
 
+import savepay.savepay.domain.payment.entity.pay.entity.PaymentType;
+
 import java.util.List;
 
 public class PayResponseDto {
@@ -12,4 +14,11 @@ public class PayResponseDto {
             String payProvider,
             Boolean isMembership
     ){}
+
+    public record PayRegistryResponseDto(
+            Long id,
+            String image,
+            String company,
+            PaymentType paymentType
+    ) {}
 }

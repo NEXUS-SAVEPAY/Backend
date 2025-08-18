@@ -14,4 +14,9 @@ public class PayRequestDto {
             PaymentType payProvider,
             Boolean isMemberShip
     ) {}
+
+    public record PayRegistryDto(
+            PaymentType payProvider,
+            String company
+    ) {}
 }

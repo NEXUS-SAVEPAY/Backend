@@ -10,7 +10,6 @@ public class CardRequestDto {
     ) {}
 
     public record CardRegisterDto(
-            String image,
             String cardName,
             String company
     ) {}
