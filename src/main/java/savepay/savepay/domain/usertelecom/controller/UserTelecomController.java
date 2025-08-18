@@ -29,4 +29,9 @@ public class UserTelecomController {
     ApiResponse<UserTelecomResponseDTO> connectUserTelecom(@UserInjection User user, @RequestBody UserTelecomRequestDTO dto) {
         return ApiResponse.onSuccess(userTelecomService.connectTelecom(dto, user));
     }
+
+    @PutMapping("/")
+    ApiResponse<UserTelecomResponseDTO> modifyUserTelecom(@UserInjection User user, @RequestBody UserTelecomRequestDTO dto) {
+        return ApiResponse.onSuccess(userTelecomService.modifyTelecom(dto, user));
+    }
 }

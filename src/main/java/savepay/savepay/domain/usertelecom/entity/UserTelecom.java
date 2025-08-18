@@ -33,4 +33,13 @@ public class UserTelecom extends BaseEntity {
                                                 TelecomGrade telecomGrade, Boolean isMembership) {
         return new UserTelecom(user, telecom, isMembership, telecomGrade);
     }
+
+    public UserTelecom modifyUserTelecom(Telecom telecom, TelecomGrade telecomGrade,
+                                                Boolean isMemberShip) {
+        this.telecom = telecom;
+        this.grade = telecomGrade;
+        this.isMemberShip = isMemberShip;
+
+        return this;
+    }
 }

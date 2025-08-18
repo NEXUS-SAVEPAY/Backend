@@ -43,4 +43,16 @@ public class UserTelecomService {
 
         return UserTelecomConverter.toDTO(userTelecom);
     }
+
+    @Transactional
+    public UserTelecomResponseDTO modifyTelecom(UserTelecomRequestDTO dto, User user) {
+        UserTelecom userTelecom = userTelecomRepository.findByUser(user).orElseThrow(() ->
+                new GeneralException(ErrorStatus.USER_TELECOM_NOT_FOUND));
+        Telecom telecomName = telecomRepository.findByTelecomName(dto.telecomName());
+
+        userTelecom.modifyUserTelecom(telecomName, dto.grade(), dto.isMembership());
+        userTelecomRepository.save(userTelecom);
+
+        return UserTelecomConverter.toDTO(userTelecom);
+    }
 }
