@@ -6,7 +6,7 @@ public class InterestBrandRequestDto {
 
     @Getter
     public static class toBrandIdDto {
-        Long brandId;
+        String brandName;
     }
 
     @Getter
