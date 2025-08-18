@@ -32,7 +32,7 @@ public class UserPayService {
         payRequestListDto.payRequestOneDtoList()
                                 .forEach(payRequestOneDto -> {
                                     Pay payProvider = payRepository.findByPaymentType(payRequestOneDto.payProvider());
-                                    UserPayment userPayment = UserPayment.createUserPayment(user, payProvider, payRequestOneDto.isMemberShip());
+                                    UserPayment userPayment = UserPayment.createUserPayment(user, payProvider, payRequestOneDto.isMembership());
                                     userPaymentRepository.save(userPayment);
                                 });
     }
@@ -44,7 +44,7 @@ public class UserPayService {
         payRequestListDto.payRequestOneDtoList()
                 .forEach(payRequestOneDto -> {
                     Pay payProvider = payRepository.findByPaymentType(payRequestOneDto.payProvider());
-                    UserPayment userPayment = UserPayment.createUserPayment(user, payProvider, payRequestOneDto.isMemberShip());
+                    UserPayment userPayment = UserPayment.createUserPayment(user, payProvider, payRequestOneDto.isMembership());
                     userPaymentRepository.save(userPayment);
                 });
     }

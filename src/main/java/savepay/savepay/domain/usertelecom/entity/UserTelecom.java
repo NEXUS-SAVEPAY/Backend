@@ -30,7 +30,7 @@ public class UserTelecom extends BaseEntity {
     private TelecomGrade grade;
 
     public static UserTelecom createUserTelecom(User user, Telecom telecom,
-                                                TelecomGrade telecomGrade, Boolean isMemberShip) {
-        return new UserTelecom(user, telecom, isMemberShip, telecomGrade);
+                                                TelecomGrade telecomGrade, Boolean isMembership) {
+        return new UserTelecom(user, telecom, isMembership, telecomGrade);
     }
 }
