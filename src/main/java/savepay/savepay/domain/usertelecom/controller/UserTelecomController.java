@@ -1,10 +1,7 @@
 package savepay.savepay.domain.usertelecom.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import savepay.savepay.domain.user.entity.User;
 import savepay.savepay.domain.usertelecom.dto.UserTelecomRequestDTO;
 import savepay.savepay.domain.usertelecom.dto.UserTelecomResponseDTO;
@@ -29,7 +26,7 @@ public class UserTelecomController {
     }
 
     @PostMapping("/")
-    ApiResponse<UserTelecomResponseDTO> connectUserTelecom(@UserInjection User user, UserTelecomRequestDTO dto) {
+    ApiResponse<UserTelecomResponseDTO> connectUserTelecom(@UserInjection User user, @RequestBody UserTelecomRequestDTO dto) {
         return ApiResponse.onSuccess(userTelecomService.connectTelecom(dto, user));
     }
 }
