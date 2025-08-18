@@ -28,7 +28,7 @@ public class CardController {
     }
 
     @GetMapping("/search")
-    public ApiResponse<CardResponseDto> searchCard(@RequestBody CardRequestDto.CardSearchDto cardSearchDto) {
+    public ApiResponse<CardResponseDto> searchCard(CardRequestDto.CardSearchDto cardSearchDto) {
         return ApiResponse.onSuccess(cardService.searchCard(cardSearchDto));
     }
 
