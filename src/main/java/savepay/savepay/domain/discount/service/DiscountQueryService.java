@@ -23,7 +23,9 @@ import savepay.savepay.global.exception.GeneralException;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -79,6 +81,29 @@ public class DiscountQueryService {
         topDiscounts.addAll(telecomDiscounts.stream().limit(2).collect(Collectors.toList()));
 
         return topDiscounts;
+    }
+
+    // 혜택추천은 6개이므로 각자 6개씩 가져와서 비교하여 리턴
+    public List<DiscountResponseDto.DiscountInfo> getUserRecommendedDiscount(User user) {
+        List<DiscountResponseDto.DiscountInfo> topDiscounts = new ArrayList<>();
+
+        List<DiscountResponseDto.DiscountInfo> cardDiscounts = getCardDiscountsOrEmpty(user);
+        topDiscounts.addAll(cardDiscounts.stream().limit(6).collect(Collectors.toList()));
+
+        List<DiscountResponseDto.DiscountInfo> payDiscounts = getPayDiscountsOrEmpty(user);
+        topDiscounts.addAll(payDiscounts.stream().limit(6).collect(Collectors.toList()));
+
+        List<DiscountResponseDto.DiscountInfo> telecomDiscounts = getTelecomDiscountsOrEmpty(user);
+        topDiscounts.addAll(telecomDiscounts.stream().limit(6).collect(Collectors.toList()));
+
+        Comparator<DiscountResponseDto.DiscountInfo> byScore = Comparator
+                .comparingInt(DiscountResponseDto.DiscountInfo::getDiscountPercent).reversed()
+                .thenComparing((DiscountResponseDto.DiscountInfo d) -> Optional.ofNullable(d.getCreatedAt()).orElse(LocalDateTime.of(1900, 1, 1, 12, 0, 0)), Comparator.reverseOrder());
+
+        return topDiscounts.stream()
+                .sorted(byScore)
+                .limit(6)
+                .toList();
     }
 
     public List<DiscountResponseDto.DiscountInfo> getInterestOrPayment(User user) {

@@ -77,4 +77,9 @@ public class DiscountController {
     public ApiResponse<DiscountResponseDto.DiscountInfo> getDiscountInfo(@PathVariable Long discountId) {
         return ApiResponse.onSuccess(discountQueryService.getDiscountInfo(discountId));
     }
+
+    @GetMapping("/recommend")
+    public ApiResponse<List<DiscountResponseDto.DiscountInfo>> getRecommendedDiscount(@UserInjection User user) {
+        return ApiResponse.onSuccess(discountQueryService.getUserRecommendedDiscount(user));
+    }
 }

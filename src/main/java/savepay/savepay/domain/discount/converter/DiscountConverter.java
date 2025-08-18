@@ -15,6 +15,7 @@ public class DiscountConverter {
                 .infoLink(discount.getInfoLink())
                 .pointInfo(discount.getPointInfo())
                 .details(discount.getDetails())
+                .createdAt(discount.getCreatedAt())
                 .build();
     }
 }
