@@ -2,6 +2,7 @@ package savepay.savepay.domain.payment.entity.card.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import savepay.savepay.domain.payment.entity.card.dto.CardRequestDto;
 import savepay.savepay.domain.payment.entity.card.dto.CardResponseDto;
 import savepay.savepay.domain.payment.entity.card.service.CardService;
@@ -21,25 +22,13 @@ public class CardController {
 
     private final UserCardService userCardService;
 
-    @PostMapping("/admin")
-    public ApiResponse<CardResponseDto> postCard(@RequestBody CardRequestDto.CardRegisterDto cardRegisterDto) {
-        return ApiResponse.onSuccess(cardService.registerCard(cardRegisterDto));
-    }
-
-    @DeleteMapping("/admin")
-    public ApiResponse<String> deleteCard(@RequestParam Long cardId) {
-        cardService.deleteCard(cardId);
-
-        return ApiResponse.onSuccess("Card is deleted!!");
-    }
-
     @GetMapping("/list")
     public ApiResponse<List<CardResponseDto>> findCardList(@UserInjection User user) {
         return ApiResponse.onSuccess(userCardService.findUserCardList(user));
     }
 
     @GetMapping("/search")
-    public ApiResponse<CardResponseDto> searchCard(CardRequestDto.CardSearchDto cardSearchDto) {
+    public ApiResponse<CardResponseDto> searchCard(@RequestBody CardRequestDto.CardSearchDto cardSearchDto) {
         return ApiResponse.onSuccess(cardService.searchCard(cardSearchDto));
     }
 

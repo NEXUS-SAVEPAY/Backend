@@ -12,7 +12,7 @@ public class CardConverter {
                 card.getCompany(), card.getCardName());
     }
 
-    public static Card toEntity(CardRequestDto.CardRegisterDto dto) {
-        return Card.createCard(dto.image(), dto.company(), dto.cardName());
+    public static Card toEntity(CardRequestDto.CardRegisterDto dto,  String image) {
+        return Card.createCard(image, dto.company(), dto.cardName());
     }
 }
