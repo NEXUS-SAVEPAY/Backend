@@ -1,5 +1,6 @@
 package savepay.savepay.domain.usertelecom.controller;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import savepay.savepay.domain.user.entity.User;
@@ -33,5 +34,12 @@ public class UserTelecomController {
     @PutMapping("/")
     ApiResponse<UserTelecomResponseDTO> modifyUserTelecom(@UserInjection User user, @RequestBody UserTelecomRequestDTO dto) {
         return ApiResponse.onSuccess(userTelecomService.modifyTelecom(dto, user));
+    }
+
+    @GetMapping("/onboarding")
+    @Operation(summary = "온보딩 시 유저의 등록수단 완료되었는 지 판단 API", description = "유저의 등록 온보딩이 완료되었는 지 판단하는 메서드")
+    ApiResponse<Boolean> onboardingUser(@UserInjection User user) {
+        return ApiResponse.onSuccess(userTelecomService.onboardingUser(user));
+
     }
 }

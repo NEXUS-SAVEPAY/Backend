@@ -54,5 +54,9 @@ public class UserTelecomService {
         userTelecomRepository.save(userTelecom);
 
         return UserTelecomConverter.toDTO(userTelecom);
+      }
+
+    public boolean onboardingUser(User user) {
+        return userTelecomRepository.findByUser(user).isPresent();
     }
 }
