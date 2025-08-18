@@ -17,7 +17,7 @@ public class PayAdminController {
 
     private final PayService payService;
 
-    @PostMapping("/")
+    @PostMapping(name = "/", consumes = "multipart/form-data")
     public ApiResponse<PayResponseDto.PayRegistryResponseDto> registerPay(@RequestPart(name = "ImageFile", required = false) MultipartFile img,
                                                                           @RequestPart PayRequestDto.PayRegistryDto payRegistryDto) {
         PayResponseDto.PayRegistryResponseDto dto = payService.register(img, payRegistryDto);

@@ -17,7 +17,7 @@ public class CardAdminController {
 
     private final CardService cardService;
 
-    @PostMapping("/")
+    @PostMapping(name = "/", consumes = "multipart/form-data")
     public ApiResponse<CardResponseDto> postCard(@RequestPart(name = "ImageFile", required = false) MultipartFile img,
                                                  @RequestPart CardRequestDto.CardRegisterDto cardRegisterDto) {
         return ApiResponse.onSuccess(cardService.registerCard(img, cardRegisterDto));
