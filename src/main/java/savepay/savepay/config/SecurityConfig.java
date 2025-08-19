@@ -152,7 +152,11 @@ public class SecurityConfig {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
         // 개발용: 프론트 주소
-        config.setAllowedOrigins(List.of("http://localhost:5173"));
+        config.setAllowedOrigins(List.of(
+                "http://localhost:5173",  
+                "https://savepay.site",    // 배포 백엔드 주소
+                "https://www.savepay.site" // 배포 서브도메인
+        ));
         // 배포시: config.setAllowedOrigins(List.of("https://app.example.com"));
         config.setAllowedMethods(List.of("GET","POST","PUT","DELETE","PATCH","OPTIONS"));
         config.setAllowedHeaders(List.of("*"));
