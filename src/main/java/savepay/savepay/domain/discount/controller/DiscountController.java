@@ -30,7 +30,7 @@ public class DiscountController {
     }
 
     @PostMapping("/discounts")
-    @Operation(summary = "유저 등록수단별 혜택 반환 API", description = "카드/페이/통신사별 혜택 리스트를 모두 반환하는 메서드")
+    @Operation(summary = "유저 검색어에 따른 등록수단별 혜택 반환 API", description = "카드/페이/통신사별 혜택 리스트를 모두 반환하는 메서드")
     public ApiResponse<List<DiscountResponseDto.DiscountInfo>> getAllDiscounts(@UserInjection User user,
                                                                                @RequestBody DiscountRequestDto.toBrandNameDto request) {
         return ApiResponse.onSuccess(discountQueryService.getAllDiscounts(user, request));
