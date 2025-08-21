@@ -19,6 +19,6 @@ public class DiscountResponseDto {
         String details; //혜택방법 상세
         String pointInfo; // 포인트 정보
         LocalDateTime createdAt;
-
+        String source;
     }
 }
