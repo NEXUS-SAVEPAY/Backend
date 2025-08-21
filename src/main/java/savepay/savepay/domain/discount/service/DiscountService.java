@@ -40,6 +40,7 @@ public class DiscountService {
                 .period(request.getDiscountDate())
                 .payment(request.getPaymentId() != null ? findPaymentById(request.getPaymentId()) : null)
                 .type(request.getDiscountType())
+                .infoLink(request.getInfoLink())
                 .grade(request.getTelecomGrade())
                 .telecom(telecom)
                 .build();
