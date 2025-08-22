@@ -1,3 +1,4 @@
+
 package savepay.savepay.domain.discount.converter;
 
 import savepay.savepay.domain.discount.dto.DiscountResponseDto;
@@ -16,6 +17,7 @@ public class DiscountConverter {
                 .pointInfo(discount.getPointInfo())
                 .details(discount.getDetails())
                 .createdAt(discount.getCreatedAt())
+                .source(DiscountInfoHelper.resolveSource(discount))
                 .build();
     }
 }
