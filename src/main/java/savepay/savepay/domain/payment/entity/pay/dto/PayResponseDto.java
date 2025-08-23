@@ -12,7 +12,9 @@ public class PayResponseDto {
 
     public record PayResponseOneDto(
             String payProvider,
-            Boolean isMembership
+            Boolean isMembership,
+            String image,
+            String company
     ){}
 
     public record PayRegistryResponseDto(

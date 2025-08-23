@@ -18,7 +18,7 @@ public class PayConverter {
 
     public static PayResponseDto.PayResponseOneDto toDto(Pay pay, Boolean isMembership) {
         return new PayResponseDto.PayResponseOneDto(pay.getPaymentType().toString(),
-                isMembership);
+                isMembership, pay.getImage(), pay.getCompany());
     }
 
     public static Pay toEntity(PayRequestDto.PayRegistryDto dto, String image) {
