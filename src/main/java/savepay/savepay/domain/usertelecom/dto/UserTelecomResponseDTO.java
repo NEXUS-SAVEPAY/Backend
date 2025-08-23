@@ -9,6 +9,7 @@ public record UserTelecomResponseDTO(
         Long userId,
         TelecomName telecomName,
         TelecomGrade grade,
-        boolean isMembership
+        boolean isMembership,
+        String image
 ) {
 }

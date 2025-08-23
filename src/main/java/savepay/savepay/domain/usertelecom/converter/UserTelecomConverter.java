@@ -14,6 +14,7 @@ public class UserTelecomConverter {
                 .telecomName(userTelecom.getTelecom().getTelecomName())
                 .grade(userTelecom.getGrade())
                 .isMembership(userTelecom.getIsMemberShip())
+                .image(userTelecom.getTelecom().getImage())
                 .build();
     }
 

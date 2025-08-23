@@ -14,4 +14,7 @@ public class Telecom extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private TelecomName telecomName;
+
+    private String image;
+
 }
