@@ -11,6 +11,7 @@ import savepay.savepay.domain.discount.dto.DiscountResponseDto;
 import savepay.savepay.domain.discount.entity.Discount;
 import savepay.savepay.domain.discount.repository.DiscountRepository;
 import savepay.savepay.domain.interestbrand.entity.InterestBrand;
+import savepay.savepay.domain.interestbrand.entity.InterestBrandCategory;
 import savepay.savepay.domain.interestbrand.repository.InterestBrandRepository;
 import savepay.savepay.domain.payment.entity.Payment;
 import savepay.savepay.domain.user.entity.User;
@@ -50,7 +51,10 @@ public class DiscountQueryService {
     }
 
     public List<DiscountResponseDto.DiscountInfo> getInterestBrandDiscount(User user) {
-        List<InterestBrand> interestBrands = interestBrandRepository.findByUser(user);
+        List<InterestBrand> interestBrands = interestBrandRepository.findByUser(user)
+                .stream()
+                .filter(interestBrand -> interestBrand.getCategory().equals(InterestBrandCategory.INTEREST))
+                .toList();
 
         if (interestBrands.isEmpty()) {
             throw new GeneralException(ErrorStatus.INTERESTED_BRAND_NOT_FOUND);
