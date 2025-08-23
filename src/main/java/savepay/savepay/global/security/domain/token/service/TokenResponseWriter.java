@@ -28,7 +28,7 @@ public class TokenResponseWriter {
     public void write(HttpServletResponse response, String access, String refresh) throws IOException, IOException {
         response.setStatus(HttpServletResponse.SC_FOUND);
         String redirectUrl = String.format(
-                "http://localhost:5173/auth/callback?accessToken=%s&refreshToken=%s",
+                "https://savepay.vercel.app/auth/callback?accessToken=%s&refreshToken=%s",
                 URLEncoder.encode(access, StandardCharsets.UTF_8),
                 URLEncoder.encode(refresh, StandardCharsets.UTF_8));
 
