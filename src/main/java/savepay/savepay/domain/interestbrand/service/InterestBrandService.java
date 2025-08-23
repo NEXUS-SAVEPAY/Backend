@@ -95,6 +95,13 @@ public class InterestBrandService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public boolean hasInterestBrands(User user) {
+        return interestBrandRepository.findByUser(user)
+                .stream()
+                .anyMatch(interestBrand -> interestBrand.getCategory().equals(InterestBrandCategory.INTEREST));
+    }
+
     private void validateUserAccess(String email, InterestBrand interestBrand) {
         if (!interestBrand.getUser().getEmail().equals(email)) {
             throw new GeneralException(ErrorStatus.FORBIDDEN);
