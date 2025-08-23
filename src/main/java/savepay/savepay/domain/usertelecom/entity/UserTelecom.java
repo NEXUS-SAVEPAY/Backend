@@ -23,7 +23,6 @@ public class UserTelecom extends BaseEntity {
     @JoinColumn(name = "telecom_id")
     private Telecom telecom;
 
-
     private Boolean isMemberShip;
 
     @Enumerated(EnumType.STRING)
