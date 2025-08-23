@@ -56,4 +56,11 @@ public class InterestBrandController {
     public ApiResponse<List<InterestBrandResponseDto.InterestBrandInfo>> getSearchBrands(@UserInjection User user) {
         return ApiResponse.onSuccess(interestBrandService.getSearchBrands(user));
     }
+
+    @GetMapping("/check")
+    @Operation(summary = "사용자 관심브랜드 등록 여부 확인 API",
+            description = "사용자가 관심브랜드를 등록했는지 확인하는 메서드")
+    public ApiResponse<Boolean> checkInterestBrands(@UserInjection User user) {
+        return ApiResponse.onSuccess(interestBrandService.hasInterestBrands(user));
+    }
 }
