@@ -153,6 +153,7 @@ public class SecurityConfig {
         CorsConfiguration config = new CorsConfiguration();
         // 개발용: 프론트 주소
         config.setAllowedOrigins(List.of(
+                "https://savepay.vercel.app",
                 "http://localhost:5173",  
                 "https://savepay.site",    // 배포 백엔드 주소
                 "https://www.savepay.site" // 배포 서브도메인
